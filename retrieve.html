@@ -39,8 +39,7 @@
 	var bigOne = document.getElementById('bigOne');
 	var dbRef = firebase.database().ref("/mne-pmo");
 	console.log("going");
-	dbRef.on('mne-pmo', snap => bigOne.innerText = snap.val());
-	//dbRef.on('value', snap => console.log("result: " + snap.val()));
+	dbRef.on('value', snap => { bigOne.innerText = snap.val(); console.log("result: " + snap.val()); });
 	console.log("gone");
 </script>
 
