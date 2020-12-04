@@ -40,6 +40,9 @@
 	var dbRef = firebase.database().ref("/mne-pmo");
 	console.log("going");
 	dbRef.on('value', snap => { bigOne.innerText = snap.val(); console.log("result: " + snap.val()); });
+	dbRef = firebase.database().ref("/mne-pmo/projectKey");
+	console.log("going");
+	dbRef.on('value', snap => { bigOne.innerText = snap.val(); console.log("result: " + snap.val()); });
 	console.log("gone");
 </script>
 
