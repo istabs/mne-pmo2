@@ -82,21 +82,21 @@
 					// is available.
 					prompt: 'select_account'
 				},
-				callbacks: {
-					signInSuccess: function (currentUser, credential, redirectUrl) {
-						console.log('HELLO!');
-						const userId = currentUser.uid;
-						window.location.assign(`/mne-pmo2/retrieve.html`);
-						return false
-					},
-				},
 			},
 			firebase.auth.FacebookAuthProvider.PROVIDER_ID,
 			firebase.auth.TwitterAuthProvider.PROVIDER_ID,
 			firebase.auth.GithubAuthProvider.PROVIDER_ID
 		],
 		// Other config options...
-	});
+		callbacks: {
+			signInSuccess: function (currentUser, credential, redirectUrl) {
+				console.log('HELLO!');
+				const userId = currentUser.uid;
+				window.location.assign(`/mne-pmo2/retrieve.html`);
+				return false
+			},
+		},
+});
 </script>
 
 <script>
