@@ -84,6 +84,7 @@
 				},
 				callbacks: {
 					signInSuccess: function (currentUser, credential, redirectUrl) {
+						console.log('HELLO!');
 						const userId = currentUser.uid;
 						window.location.assign(`/mne-pmo2/retrieve.html`);
 						return false
