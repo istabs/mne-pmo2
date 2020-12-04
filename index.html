@@ -82,6 +82,13 @@
 					// is available.
 					prompt: 'select_account'
 				},
+				callbacks: {
+					signInSuccess: function (currentUser, credential, redirectUrl) {
+						const userId = currentUser.uid;
+						window.location.assign(`/retrieve`);
+						return false
+					},
+				},
 			},
 			firebase.auth.FacebookAuthProvider.PROVIDER_ID,
 			firebase.auth.TwitterAuthProvider.PROVIDER_ID,
