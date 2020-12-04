@@ -64,7 +64,7 @@
 
 <script>
 	var ui = new firebaseui.auth.AuthUI(firebase.auth());
-	ui.start('#firebaseui-auth-container', {
+	var uiConfig = {
 		signInSuccessUrl: 'https://istabs.github.io/mne-pmo2/retrieve.html',
 		signInOptions: [{
 				provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
@@ -98,7 +98,8 @@
 				return false
 			},
 		},
-});
+	};
+	ui.start('#firebaseui-auth-container', uiConfig)
 </script>
 
 <script>
