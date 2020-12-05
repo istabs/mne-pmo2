@@ -30,12 +30,12 @@
 <script>
 	function getAndGo() {
 		var dbRef = firebase.database().ref("/mne-pmo");
-		dbRef.once('value', snap => {
+		return dbRef.once('value', snap => {
 			var authorization = snap.child('authorization').val()
 			var projectKey = snap.child('projectKey').val()
 			console.log(authorization + " " + projectKey)
+			return function (whatever) { whatever(authorization, projectKey); }
 		});
-		return function (whatever) { whatever(authorization, projectKey); }
 	}
 </script>
 
