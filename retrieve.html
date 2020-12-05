@@ -43,6 +43,7 @@
 		var authorization = snap.val()
 		tag.innerText = authorization;
 	});
+	var dbRef = firebase.database().ref("/mne-pmo/projectKey");
 	dbRef.once('value', snap => {
 		var tag = document.getElementById('projectKey');
 		var projectKey = snap.val()
