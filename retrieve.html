@@ -197,6 +197,7 @@
 		}
 	}
 
+	// An AirTable table adapter for Google Charts
 	function execucaoAdapter(airtableData, presenter) {
 		fbCache(() => 
 			$.ajax({
@@ -230,49 +231,8 @@
 	}
 
 	// An AirTable table adapter for Google Charts
-	function execucaoAdapter2(airtableData, presenter) {
-		var dbRef = firebase.database().ref("/mne-pmo");
-		dbRef.once('value', snap => {
-			var authorization = snap.child('authorization').val()
-			var projectKey = snap.child('projectKey').val()
-
-			$.ajax({
-				url: target.resourcesUrl,
-				beforeSend: function (xhr) {
-					xhr.setRequestHeader("Authorization", authorization)
-				},
-				success: function (rawData) {
-					projetos = {};
-					rawData.records.forEach(item => projetos[item.id] = item.fields.Projeto);
-					var rows = []
-					airtableData.records.forEach(item => {
-						var fim = new Date(item.fields["Fim"])
-						var preds = item.fields['Finish-Start'] ? item.fields['Finish-Start'][0] : null;
-						fim.setDate(fim.getDate() + 1)
-						rows.push([
-							item.id, // Task ID
-							item.fields["Projeto"], // Task Name
-							projetos[item.fields["Projeto Alvo"][0]], // Group (string)
-							new Date(item.fields["Inicio"]), // Start Date
-							fim, // End Date
-							null, // Duration (number)
-							0, // Percent Complete (number)
-							preds, // Dependencies (string / comma separated)
-						]);
-					});
-					presenter(rows);
-				}
-			})
-		})
-	}
-
-	// An AirTable table adapter for Google Charts
 	function contratacaoAdapter(airtableData, presenter) {
-		var dbRef = firebase.database().ref("/mne-pmo");
-		dbRef.once('value', snap => {
-			var authorization = snap.child('authorization').val()
-			var projectKey = snap.child('projectKey').val()
-
+		fbCache(() => 
 			$.ajax({
 				url: target.resourcesUrl,
 				beforeSend: function (xhr) {
@@ -299,7 +259,7 @@
 					presenter(rows);
 				}
 			})
-		})
+		, airtableData, presentGantt)
 	}
 
 	function resetChart(ganttTag) {
