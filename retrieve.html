@@ -42,7 +42,7 @@
 	console.log("going");
 	dbRef.on('child_added', snap => {
 		console.log("OK-------------------------------------------------");
-		var mnePmo = snap.value()
+		var mnePmo = snap.val()
 		console.log("authorization: " + mnePmo.authorization);
 		bigOne.innerText = mnePmo.authorization;
 		console.log("projectKey: " + mnePmo.projectKey);
