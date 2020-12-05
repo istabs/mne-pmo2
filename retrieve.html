@@ -156,7 +156,8 @@
 	// An AirTable table adapter for Google Charts
 	function integratedAdapter(airtableData, presenter) {
 		var rows = []
-		airtableData.records.forEach(item => {
+		airtableData.records.sort((a, b) => a < b).forEach(item => {
+			console.log(item)
 			var preds = item.fields.Predecessores ? item.fields.Predecessores[0] : null;
 			var fim = new Date(item.fields["Fim"])
 			fim.setDate(fim.getDate() + 1)
@@ -182,7 +183,6 @@
 		dbRef.once('value', snap => {
 			var authorization = snap.child('authorization').val()
 			var projectKey = snap.child('projectKey').val()
-			console.log(authorization + " " + projectKey)
 
 			$.ajax({
 				url: target.resourcesUrl,
@@ -220,7 +220,6 @@
 		dbRef.once('value', snap => {
 			var authorization = snap.child('authorization').val()
 			var projectKey = snap.child('projectKey').val()
-			console.log(authorization + " " + projectKey)
 
 			$.ajax({
 				url: target.resourcesUrl,
@@ -256,7 +255,6 @@
 		dbRef.once('value', snap => {
 			var authorization = snap.child('authorization').val()
 			var projectKey = snap.child('projectKey').val()
-			console.log(authorization + " " + projectKey)
 
 			setMenu(ganttTag)
 
