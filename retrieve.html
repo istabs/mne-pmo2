@@ -157,7 +157,7 @@
 	function integratedAdapter(airtableData, presenter) {
 		var rows = []
 		airtableData.records.sort((a, b) => a < b).forEach(item => {
-			console.log(item)
+			console.log(item.fields.Inicio)
 			var preds = item.fields.Predecessores ? item.fields.Predecessores[0] : null;
 			var fim = new Date(item.fields["Fim"])
 			fim.setDate(fim.getDate() + 1)
