@@ -190,6 +190,9 @@
 </script>
 
 <script type="text/javascript">
+	
+	var target = setup.contratacao;
+
 	function go(tag) {
 		var dbRef = firebase.database().ref("/mne-pmo");
 		dbRef.once('value', snap => {
@@ -426,7 +429,7 @@
 				},
 			}
 
-			var target = setup.contratacao;
+			//var target = setup.contratacao;
 
 			resetChart(tag)
 		});
