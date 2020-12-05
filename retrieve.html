@@ -37,10 +37,10 @@
 <script>
 	// Initialize Firebase
 	firebase.initializeApp(firebaseConfig);
-	var bigOne = document.getElementById('bigOne');
 	var dbRef = firebase.database().ref("/mne-pmo");
 	console.log("going");
 	dbRef.on('child_added', (snap, prevChildKey) => {
+		var bigOne = document.getElementById('bigOne');
 		console.log("OK-------------------------------------------------");
 		var mnePmo = snap.val()
 		console.log("val: " + mnePmo);
