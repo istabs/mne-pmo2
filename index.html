@@ -65,7 +65,7 @@
 				var phoneNumber = user.phoneNumber;
 				var providerData = user.providerData;
 				user.getIdToken().then(function (accessToken) {
-					document.getElementById('sign-in-status').textContent = 'Signed in';
+					document.getElementById('sign-in-status').textContent = 'ativa';
 					//document.getElementById('sign-in').textContent = 'Sign out';
 					document.getElementById('account-details').textContent = JSON.stringify({
 						//displayName: displayName,
@@ -80,7 +80,7 @@
 				});
 			} else {
 				// User is signed out.
-				document.getElementById('sign-in-status').textContent = 'Signed out';
+				document.getElementById('sign-in-status').textContent = 'inativa';
 				//document.getElementById('sign-in').textContent = 'Sign in';
 				document.getElementById('account-details').textContent = 'null';
 			}
@@ -95,11 +95,12 @@
 <body>
 	<h1>MNE-PMO</h1>
 	<div id="firebaseui-auth-container"></div>
-	<div id="loader">Loading...</div>
-	<div id="sign-in-status"></div>
+	<p><div id="loader">A carregar...</div></p>
+	<p>O sessão está <div id="sign-in-status">.</div></p>
 	<div id="sign-in"></div>
+	<p>Os detalhes da sessão são:</p>
 	<pre id="account-details"></pre>
-	<button href="retrieve.html">Seguir</button>
+	<button href="retrieve.html">Continuar</button>
 </body>
 
 </html>
