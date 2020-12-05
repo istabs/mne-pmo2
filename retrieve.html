@@ -88,54 +88,20 @@
 			viewer(table);
 		});
 	}
-
 </script>
 
-<script type="text/javascript">
-	var dbRef = firebase.database().ref("/mne-pmo");
-	dbRef.once('value', snap => {
-		var authorization = snap.child('authorization').val()
-		var projectKey = snap.child('projectKey').val()
-		console.log(authorization + " " + projectKey)
-
-			// An AirTable table adapter for Google Charts
-	function mneAdapter(airtableData, presenter) {
-		var rows = []
-		airtableData.records.forEach(item => {
-			if (item.fields["Sumário"]) {
-				var fim = new Date(item.fields["Fim"])
-				fim.setDate(fim.getDate() + 1)
-				deps = ""
-				if (item.fields["Predecessor"])
-					item.fields["Predecessor"].forEach(pred => deps += "," + pred)
-				deps = deps.substring(1)
-				rows.push([
-					item.id, // Task ID
-					item.fields["Atividade"], // Task Name
-					item.fields["Classificação"],
-					new Date(item.fields["Inicio"]), // Start Date
-					fim, // End Date
-					0, // Duration
-					item.fields["Progresso"], // Percent Complete
-					deps // Dependencies
-				]);
-			}
-		});
-		presenter(rows);
-	}
-
-	// An AirTable table adapter for Google Charts
-	function detailsAdapter(id, airtableData, presenter) {
-		var rows = []
-		var classificacao = ""
-		airtableData.records.forEach(item => {
-			if (item.id === id) classificacao = item.fields["Classificação"]
-		})
-		airtableData.records.forEach(item => {
-			if (item.id === id || (item.fields["Classificação"] && item.fields["Classificação"] === classificacao)) {
-				var fim = new Date(item.fields["Fim"])
-				fim.setDate(fim.getDate() + 1)
-				if (item.fields.Inicio && item.fields.Fim)
+<script>
+		// An AirTable table adapter for Google Charts
+		function mneAdapter(airtableData, presenter) {
+			var rows = []
+			airtableData.records.forEach(item => {
+				if (item.fields["Sumário"]) {
+					var fim = new Date(item.fields["Fim"])
+					fim.setDate(fim.getDate() + 1)
+					deps = ""
+					if (item.fields["Predecessor"])
+						item.fields["Predecessor"].forEach(pred => deps += "," + pred)
+					deps = deps.substring(1)
 					rows.push([
 						item.id, // Task ID
 						item.fields["Atividade"], // Task Name
@@ -144,292 +110,327 @@
 						fim, // End Date
 						0, // Duration
 						item.fields["Progresso"], // Percent Complete
-						null, // Dependencies
+						deps // Dependencies
 					]);
-			}
-		});
-		presenter(rows);
-	}
+				}
+			});
+			presenter(rows);
+		}
 
-	// An AirTable table adapter for Google Charts
-	function projetosAdapter(airtableData, presenter) {
-		var rows = []
-		airtableData.records.forEach(item => {
-			var fim = new Date(item.fields["Fim"])
-			fim.setDate(fim.getDate() + 1)
-			rows.push([
-				item.id, // Task ID
-				item.fields["Projeto"], // Task Name
-				item.fields["Criticidade"], // Group (string)
-				new Date(item.fields["Inicio"]), // Start Date
-				fim, // End Date
-				null, // Duration (number)
-				null, // Percent Complete (number)
-				null, // Dependencies (string / comma separated)
-			]);
-		});
-		presenter(rows);
-	}
-
-	// An AirTable table adapter for Google Charts
-	function execucaoAdapter(airtableData, presenter) {
-		informedCall(
-			$.ajax({
-				url: target.resourcesUrl,
-				beforeSend: function (xhr) {
-					xhr.setRequestHeader("Authorization", authorization)
-				},
-				success: function (rawData) {
-					projetos = {};
-					rawData.records.forEach(item => projetos[item.id] = item.fields.Projeto);
-					var rows = []
-					airtableData.records.forEach(item => {
-						var fim = new Date(item.fields["Fim"])
-						var preds = item.fields['Finish-Start'] ? item.fields['Finish-Start'][0] : null;
-						fim.setDate(fim.getDate() + 1)
+		// An AirTable table adapter for Google Charts
+		function detailsAdapter(id, airtableData, presenter) {
+			var rows = []
+			var classificacao = ""
+			airtableData.records.forEach(item => {
+				if (item.id === id) classificacao = item.fields["Classificação"]
+			})
+			airtableData.records.forEach(item => {
+				if (item.id === id || (item.fields["Classificação"] && item.fields["Classificação"] === classificacao)) {
+					var fim = new Date(item.fields["Fim"])
+					fim.setDate(fim.getDate() + 1)
+					if (item.fields.Inicio && item.fields.Fim)
 						rows.push([
 							item.id, // Task ID
-							item.fields["Projeto"], // Task Name
-							projetos[item.fields["Projeto Alvo"][0]], // Group (string)
+							item.fields["Atividade"], // Task Name
+							item.fields["Classificação"],
 							new Date(item.fields["Inicio"]), // Start Date
 							fim, // End Date
-							null, // Duration (number)
-							0, // Percent Complete (number)
-							preds, // Dependencies (string / comma separated)
+							0, // Duration
+							item.fields["Progresso"], // Percent Complete
+							null, // Dependencies
 						]);
-					});
-					presenter(rows);
 				}
-			})
-		)
-	}
+			});
+			presenter(rows);
+		}
 
-	// An AirTable table adapter for Google Charts
-	function contratacaoAdapter(airtableData, presenter) {
-		informedCall(
-			$.ajax({
-				url: target.resourcesUrl,
-				beforeSend: function (xhr) {
-					xhr.setRequestHeader("Authorization", authorization)
-				},
-				success: function (rawData) {
-					resources = {};
-					rawData.records.forEach(item => resources[item.id] = item.fields.Procedimento);
-					var rows = []
-					airtableData.records.forEach(item => {
-						var fim = new Date(item.fields["Fim"])
-						fim.setDate(fim.getDate() + 1)
-						rows.push([
-							item.id, // Task ID
-							item.fields["Projeto"], // Task Name
-							resources[item.fields["Procedimento"][0]], // Group (string)
-							new Date(item.fields["Inicio"]), // Start Date
-							fim, // End Date
-							null, // Duration (number)
-							0, // Percent Complete (number)
-							null, // Dependencies (string / comma separated)
-						]);
-					});
-					presenter(rows);
-				}
-			})
-		)
-	}
-
-	// An AirTable table adapter for Google Charts
-	function integratedAdapter(airtableData, presenter) {
-		var rows = []
-		airtableData.records.forEach(item => {
-			var preds = item.fields.Predecessores ? item.fields.Predecessores[0] : null;
-			var fim = new Date(item.fields["Fim"])
-			fim.setDate(fim.getDate() + 1)
-			if (item.fields.Inicio && item.fields.Fim)
+		// An AirTable table adapter for Google Charts
+		function projetosAdapter(airtableData, presenter) {
+			var rows = []
+			airtableData.records.forEach(item => {
+				var fim = new Date(item.fields["Fim"])
+				fim.setDate(fim.getDate() + 1)
 				rows.push([
 					item.id, // Task ID
-					item.fields["Name"], // Task Name
-					item.fields["Projeto"], // Group (string)
+					item.fields["Projeto"], // Task Name
+					item.fields["Criticidade"], // Group (string)
 					new Date(item.fields["Inicio"]), // Start Date
 					fim, // End Date
 					null, // Duration (number)
-					0, // Percent Complete (number)
-					preds, // Dependencies (string / comma separated)
+					null, // Percent Complete (number)
+					null, // Dependencies (string / comma separated)
 				]);
-		});
-		presenter(rows);
-	}
-
-	function fromMenu(choice) {
-		target=setup[choice];
-		resetChart('ganttCharts');
-	}
-
-	function setMenu (ganttTag) {
-		var links = "";
-		Object.entries(setup).forEach(item => {
-			console.log(item);
-			links +="<a class='menuItems' onclick=\"fromMenu('" + item[0] + "')\" href=\"#\">" + item[1].title + "</a>"
-		});
-		document.getElementById(ganttTag).innerHTML = links
-	}
-
-	function resetChart(ganttTag) {
-		setMenu(ganttTag)
-
-		if (target.title) {
-			document.getElementById("chart_title_div").innerHTML = target.title + (target.subtitle ? " - " + target.subtitle : "")
+			});
+			presenter(rows);
 		}
-		informedCall(
-			$.ajax({
-				url: target.url,
-				beforeSend: function (xhr) {
-					xhr.setRequestHeader("Authorization", authorization)
-				},
-				success: function (rawData) {
-					const HTML_POSITION = 'chart_div';
 
-					var gantt = {
-						sortTasks: true,
-						criticalPathEnabled: false,
-						criticalPathStyle: { strokeWidth: 0, stroke: '#e64a19', },
-						arrow: { width: 0, radius: 10, length: 0, spaceAfter: -275, },
-					};
-					if (target.palette) gantt['palette'] = target.palette;
-
-					var options = {gantt: gantt, height: target.height, width: 960, };
-
-					var presenter = _.partial(presentGantt, HTML_POSITION, options, rawData);
-					google.charts.setOnLoadCallback(() => googleChartAirtableAdapt(rawData, target.adapt, presenter));
+		// An AirTable table adapter for Google Charts
+		function integratedAdapter(airtableData, presenter) {
+			var rows = []
+			airtableData.records.forEach(item => {
+				var preds = item.fields.Predecessores ? item.fields.Predecessores[0] : null;
+				var fim = new Date(item.fields["Fim"])
+				fim.setDate(fim.getDate() + 1)
+				if (item.fields.Inicio && item.fields.Fim) {
+					rows.push([
+						item.id, // Task ID
+						item.fields["Name"], // Task Name
+						item.fields["Projeto"], // Group (string)
+						new Date(item.fields["Inicio"]), // Start Date
+						fim, // End Date
+						null, // Duration (number)
+						0, // Percent Complete (number)
+						preds, // Dependencies (string / comma separated)
+					]);
 				}
-			})
-		)
-	}
-
-	document.addEventListener("DOMContentLoaded", event => resetChart("ganttCharts"));
-
-	var baseUrl = 'https://api.airtable.com/v0/' + projectKey
-		var setup = {
-			projetos: {
-				url: baseUrl + '/Projetos',
-				title: 'Projetos',
-				adapt: projetosAdapter,
-				height: 23 * 42 + 40,
-				count: 23,
-				palette: [
-					{ "color": "OrangeRed",     "dark": "MediumBlue", "light": "LightGray" },        // 2
-					{ "color": "Orange",        "dark": "MediumBlue", "light": "LightGray" },     // 3
-					{ "color": "LimeGreen",     "dark": "MediumBlue", "light": "LightGray" },   // 4
-					{ "color": "DarkSlateGray", "dark": "MediumBlue", "light": "LightGray" },      // 1
-					{ "color": "LightGray",     "dark": "MediumBlue", "light": "LightGray" },    // nd
-				],
-			},
-			execucao: {
-				url: baseUrl + '/Execução',
-				resourcesUrl: baseUrl + '/Projetos',
-				title: 'Execução',
-				adapt: execucaoAdapter,
-				height: 60 * 42 + 40,
-				count: 60,
-				palette: [
-					{ "color": "#34568B", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#CD212A", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#FFA500", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#56C6A9", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#4B5335", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#798EA4", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#FA7A35", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#00758F", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#EDD59E", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#E8A798", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#9C4722", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#6B5876", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#B89B72", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#282D3C", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#A09998", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#DC793E", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#A2242F", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#C48A69", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#D9CE52", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#D19C97", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#006B54", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#6A2E2A", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#6C244C", "dark": "MediumBlue", "light": "LightGray" },
-				],
-			},
-			contratacao: {
-				url: baseUrl + '/Contratação',
-				resourcesUrl: baseUrl + '/Procedimentos',
-				title: 'Contratação',
-				adapt: contratacaoAdapter,
-				height: 17 * 42 + 40,
-				count: 17,
-				palette: [
-					{ "color": "#5e97f6", "dark": "#2a56c6", "light": "#c6dafc" },
-					{ "color": "#db4437", "dark": "#a52714", "light": "#f4c7c3" },
-					{ "color": "#f2a600", "dark": "#ee8100", "light": "#fce8b2" },
-					{ "color": "#0f9d58", "dark": "#0b8043", "light": "#b7e1cd" },
-					{ "color": "#ab47bc", "dark": "#6a1b9a", "light": "#e1bee7" },
-					{ "color": "#00acc1", "dark": "#00838f", "light": "#b2ebf2" },
-					{ "color": "#ff7043", "dark": "#e64a19", "light": "#ffccbc" },
-					{ "color": "#9e9d24", "dark": "#827717", "light": "#f0f4c3" },
-					{ "color": "#5c6bc0", "dark": "#3949ab", "light": "#c5cae9" },
-					{ "color": "#f06292", "dark": "#e91e63", "light": "#f8bbd0" },
-					{ "color": "#00796b", "dark": "#004d40", "light": "#b2dfdb" },
-					{ "color": "#c2185b", "dark": "#880e4f", "light": "#f48fb1" },
-				],
-			},
-			integracao: {
-				url: baseUrl + '/Visão Integrada',
-				title: 'Visão Integrada',
-				adapt: integratedAdapter,
-				height: 100 * 42 + 40,
-				count: 72,
-				palette: [
-					{ "color": "#34568B", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#CD212A", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#FFA500", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#56C6A9", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#4B5335", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#798EA4", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#FA7A35", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#00758F", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#EDD59E", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#E8A798", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#9C4722", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#6B5876", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#B89B72", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#282D3C", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#A09998", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#DC793E", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#A2242F", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#C48A69", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#D9CE52", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#D19C97", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#006B54", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#6A2E2A", "dark": "MediumBlue", "light": "LightGray" },
-					{ "color": "#6C244C", "dark": "MediumBlue", "light": "LightGray" },
-				],
-			},
-			a20: {
-				url: baseUrl + '/A20',
-				resourcesUrl: baseUrl + '/Projetos',
-				title: 'A20',
-				subtitle: 'Concurso Público',
-				adapt: mneAdapter,
-				height: 9 * 42 + 40,
-				count: 9,
-			},
-			s20: {
-				url: baseUrl + '/S20',
-				resourcesUrl: baseUrl + '/Projetos',
-				title: 'S20',
-				subtitle: 'Consulta Prévia',
-				adapt: mneAdapter,
-				height: 11 * 42 + 40,
-				count: 11,
-			},
+			});
+			presenter(rows);
 		}
-		var target = setup.projetos;
-	});
+
+</script>
+
+<script type="text/javascript">
+	function go(tag) {
+		var dbRef = firebase.database().ref("/mne-pmo");
+		dbRef.once('value', snap => {
+			var authorization = snap.child('authorization').val()
+			var projectKey = snap.child('projectKey').val()
+			console.log(authorization + " " + projectKey)
+
+			// An AirTable table adapter for Google Charts
+			function execucaoAdapter(airtableData, presenter) {
+				$.ajax({
+					url: target.resourcesUrl,
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader("Authorization", authorization)
+					},
+					success: function (rawData) {
+						projetos = {};
+						rawData.records.forEach(item => projetos[item.id] = item.fields.Projeto);
+						var rows = []
+						airtableData.records.forEach(item => {
+							var fim = new Date(item.fields["Fim"])
+							var preds = item.fields['Finish-Start'] ? item.fields['Finish-Start'][0] : null;
+							fim.setDate(fim.getDate() + 1)
+							rows.push([
+								item.id, // Task ID
+								item.fields["Projeto"], // Task Name
+								projetos[item.fields["Projeto Alvo"][0]], // Group (string)
+								new Date(item.fields["Inicio"]), // Start Date
+								fim, // End Date
+								null, // Duration (number)
+								0, // Percent Complete (number)
+								preds, // Dependencies (string / comma separated)
+							]);
+						});
+						presenter(rows);
+					}
+				})
+			}
+
+			// An AirTable table adapter for Google Charts
+			function contratacaoAdapter(airtableData, presenter) {
+				$.ajax({
+					url: target.resourcesUrl,
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader("Authorization", authorization)
+					},
+					success: function (rawData) {
+						resources = {};
+						rawData.records.forEach(item => resources[item.id] = item.fields.Procedimento);
+						var rows = []
+						airtableData.records.forEach(item => {
+							var fim = new Date(item.fields["Fim"])
+							fim.setDate(fim.getDate() + 1)
+							rows.push([
+								item.id, // Task ID
+								item.fields["Projeto"], // Task Name
+								resources[item.fields["Procedimento"][0]], // Group (string)
+								new Date(item.fields["Inicio"]), // Start Date
+								fim, // End Date
+								null, // Duration (number)
+								0, // Percent Complete (number)
+								null, // Dependencies (string / comma separated)
+							]);
+						});
+						presenter(rows);
+					}
+				})
+			}
+
+			function fromMenu(choice) {
+				target=setup[choice];
+				resetChart('ganttCharts');
+			}
+
+			function setMenu (ganttTag) {
+				var links = "";
+				Object.entries(setup).forEach(item => {
+					links +="<a class='menuItems' onclick=\"fromMenu('" + item[0] + "')\" href=\"#\">" + item[1].title + "</a>"
+				});
+				document.getElementById(ganttTag).innerHTML = links
+			}
+
+			function resetChart(ganttTag) {
+				setMenu(ganttTag)
+
+				if (target.title) {
+					document.getElementById("chart_title_div").innerHTML = target.title + (target.subtitle ? " - " + target.subtitle : "")
+				}
+				$.ajax({
+					url: target.url,
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader("Authorization", authorization)
+					},
+					success: function (rawData) {
+						const HTML_POSITION = 'chart_div';
+
+						var gantt = {
+							sortTasks: true,
+							criticalPathEnabled: false,
+							criticalPathStyle: { strokeWidth: 0, stroke: '#e64a19', },
+							arrow: { width: 0, radius: 10, length: 0, spaceAfter: -275, },
+						};
+						if (target.palette) gantt['palette'] = target.palette;
+
+						var options = {gantt: gantt, height: target.height, width: 960, };
+
+						var presenter = _.partial(presentGantt, HTML_POSITION, options, rawData);
+						google.charts.setOnLoadCallback(() => googleChartAirtableAdapt(rawData, target.adapt, presenter));
+					}
+				})
+			}
+
+			document.addEventListener("DOMContentLoaded", event => resetChart("ganttCharts"));
+
+			var baseUrl = 'https://api.airtable.com/v0/' + projectKey
+			var setup = {
+				projetos: {
+					url: baseUrl + '/Projetos',
+					title: 'Projetos',
+					adapt: projetosAdapter,
+					height: 23 * 42 + 40,
+					count: 23,
+					palette: [
+						{ "color": "OrangeRed",     "dark": "MediumBlue", "light": "LightGray" },        // 2
+						{ "color": "Orange",        "dark": "MediumBlue", "light": "LightGray" },     // 3
+						{ "color": "LimeGreen",     "dark": "MediumBlue", "light": "LightGray" },   // 4
+						{ "color": "DarkSlateGray", "dark": "MediumBlue", "light": "LightGray" },      // 1
+						{ "color": "LightGray",     "dark": "MediumBlue", "light": "LightGray" },    // nd
+					],
+				},
+				execucao: {
+					url: baseUrl + '/Execução',
+					resourcesUrl: baseUrl + '/Projetos',
+					title: 'Execução',
+					adapt: execucaoAdapter,
+					height: 60 * 42 + 40,
+					count: 60,
+					palette: [
+						{ "color": "#34568B", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#CD212A", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#FFA500", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#56C6A9", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#4B5335", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#798EA4", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#FA7A35", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#00758F", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#EDD59E", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#E8A798", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#9C4722", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#6B5876", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#B89B72", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#282D3C", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#A09998", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#DC793E", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#A2242F", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#C48A69", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#D9CE52", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#D19C97", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#006B54", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#6A2E2A", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#6C244C", "dark": "MediumBlue", "light": "LightGray" },
+					],
+				},
+				contratacao: {
+					url: baseUrl + '/Contratação',
+					resourcesUrl: baseUrl + '/Procedimentos',
+					title: 'Contratação',
+					adapt: contratacaoAdapter,
+					height: 17 * 42 + 40,
+					count: 17,
+					palette: [
+						{ "color": "#5e97f6", "dark": "#2a56c6", "light": "#c6dafc" },
+						{ "color": "#db4437", "dark": "#a52714", "light": "#f4c7c3" },
+						{ "color": "#f2a600", "dark": "#ee8100", "light": "#fce8b2" },
+						{ "color": "#0f9d58", "dark": "#0b8043", "light": "#b7e1cd" },
+						{ "color": "#ab47bc", "dark": "#6a1b9a", "light": "#e1bee7" },
+						{ "color": "#00acc1", "dark": "#00838f", "light": "#b2ebf2" },
+						{ "color": "#ff7043", "dark": "#e64a19", "light": "#ffccbc" },
+						{ "color": "#9e9d24", "dark": "#827717", "light": "#f0f4c3" },
+						{ "color": "#5c6bc0", "dark": "#3949ab", "light": "#c5cae9" },
+						{ "color": "#f06292", "dark": "#e91e63", "light": "#f8bbd0" },
+						{ "color": "#00796b", "dark": "#004d40", "light": "#b2dfdb" },
+						{ "color": "#c2185b", "dark": "#880e4f", "light": "#f48fb1" },
+					],
+				},
+				integracao: {
+					url: baseUrl + '/Visão Integrada',
+					title: 'Visão Integrada',
+					adapt: integratedAdapter,
+					height: 100 * 42 + 40,
+					count: 72,
+					palette: [
+						{ "color": "#34568B", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#CD212A", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#FFA500", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#56C6A9", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#4B5335", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#798EA4", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#FA7A35", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#00758F", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#EDD59E", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#E8A798", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#9C4722", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#6B5876", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#B89B72", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#282D3C", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#A09998", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#DC793E", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#A2242F", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#C48A69", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#D9CE52", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#D19C97", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#006B54", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#6A2E2A", "dark": "MediumBlue", "light": "LightGray" },
+						{ "color": "#6C244C", "dark": "MediumBlue", "light": "LightGray" },
+					],
+				},
+				a20: {
+					url: baseUrl + '/A20',
+					resourcesUrl: baseUrl + '/Projetos',
+					title: 'A20',
+					subtitle: 'Concurso Público',
+					adapt: mneAdapter,
+					height: 9 * 42 + 40,
+					count: 9,
+				},
+				s20: {
+					url: baseUrl + '/S20',
+					resourcesUrl: baseUrl + '/Projetos',
+					title: 'S20',
+					subtitle: 'Consulta Prévia',
+					adapt: mneAdapter,
+					height: 11 * 42 + 40,
+					count: 11,
+				},
+			}
+
+			var target = setup.projetos;
+			
+			resetChart(tag)
+		});
+	}
 </script>
 
 <script>
@@ -461,7 +462,7 @@
         <button onclick="menuToggle()" class="dropbtn">Seleção de Gantt</button>
         <div id="ganttCharts" class="dropdown-content"></div>
     </div>      
-    <button class="resetbtn" onclick="resetChart('ganttCharts')">Reset</button>
+    <button class="resetbtn" onclick="go('ganttCharts')">Reset</button>
     <div id="chart_div"></div>
 
 </body>
