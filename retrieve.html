@@ -38,8 +38,8 @@
 	});
 	var dbRef = firebase.database().ref("/mne-pmo");
 	dbRef.once('value', snap => {
-		authorization = snap.child[0].val()
-		projectKey = snap.child[0].val()
+		authorization = snap.child('authorization').val()
+		projectKey = snap.child('projectKey').val()
 		console.log(authorization + " " + projectKey)
 	});
 
