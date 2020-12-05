@@ -198,7 +198,7 @@
 	}
 
 	function execucaoAdapter(airtableData, presenter) {
-		fbCache(
+		fbCache(() => 
 			$.ajax({
 				url: target.resourcesUrl,
 				beforeSend: function (xhr) {
