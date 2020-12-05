@@ -192,7 +192,6 @@
 <script type="text/javascript">
 
 	var baseUrl = "";
-	var target = setup.contratacao;
 
 	function go(tag) {
 		var dbRef = firebase.database().ref("/mne-pmo");
@@ -313,6 +312,7 @@
 			resetChart(tag)
 		});
 	}
+
 </script>
 
 <script>
@@ -437,6 +437,10 @@
 			count: 11,
 		},
 	}
+</script>
+
+<script>
+	var target = setup.contratacao;
 </script>
 
 <script>
