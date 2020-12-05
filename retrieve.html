@@ -32,10 +32,17 @@
 	dbRef.once('value', snap => {
 		authorization = snap.val()
 	});
-	var dbRef = firebase.database().ref("/mne-pmo/projectKey");
+	dbRef = firebase.database().ref("/mne-pmo/projectKey");
 	dbRef.once('value', snap => {
 		projectKey = snap.val()
 	});
+	var dbRef = firebase.database().ref("/mne-pmo");
+	dbRef.once('value', snap => {
+		authorization = snap.child[0].val()
+		projectKey = snap.child[0].val()
+		console.log(authorization + " " + projectKey)
+	});
+
 </script>
 
 <script type="text/javascript">
