@@ -30,6 +30,7 @@
 </script>
 
 <script>
+	firebase.initializeApp(firebaseConfig);
 	var ui = new firebaseui.auth.AuthUI(firebase.auth());
 	var uiConfig = {
 		signInSuccessUrl: 'retrieve.html',
@@ -48,7 +49,6 @@
 			//window.location.assign('<your-privacy-policy-url>');
 		//},
 	};
-	firebase.initializeApp(firebaseConfig);
 	ui.start('#firebaseui-auth-container', uiConfig)
 </script>
 
