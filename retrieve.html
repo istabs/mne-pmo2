@@ -38,12 +38,13 @@
 	// Initialize Firebase
 	firebase.initializeApp(firebaseConfig);
 	var bigOne = document.getElementById('bigOne');
-	var dbRef = firebase.database().ref("/mne-pmo");
+	var dbRef = firebase.database().ref("/");
 	console.log("going");
-	dbRef.on('value', snap => { bigOne.innerText = snap.val(); console.log("result: " + snap.val()); });
-	dbRef = firebase.database().ref("/mne-pmo/projectKey");
-	console.log("going");
-	dbRef.on('value', snap => { bigOne.innerText = snap.val(); console.log("result: " + snap.val()); });
+	dbRef.on('value', snap => {
+		console.log("OK-------------------------------------------------");
+		console.log("result: " + snap.val());
+		bigOne.innerText = snap.val();
+	});
 	console.log("gone");
 </script>
 
