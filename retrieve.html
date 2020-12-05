@@ -37,23 +37,24 @@
 <script>
 	// Initialize Firebase
 	firebase.initializeApp(firebaseConfig);
-	var dbRef = firebase.database().ref("/mne-pmo");
-	console.log("going");
-	dbRef.on('child_added', (snap, prevChildKey) => {
-		var bigOne = document.getElementById('bigOne');
-		console.log("OK-------------------------------------------------");
-		var mnePmo = snap.val()
-		console.log("val: " + mnePmo);
-		bigOne.innerText = mnePmo;
-		console.log("prevChildKey: " + prevChildKey);
+	var dbRef = firebase.database().ref("/mne-pmo/authorization");
+	dbRef.once('value', snap => {
+		var tag = document.getElementById('authorization');
+		var authorization = snap.val()
+		tag.innerText = authorization;
 	});
-	console.log("gone");
+	dbRef.once('value', snap => {
+		var tag = document.getElementById('projectKey');
+		var projectKey = snap.val()
+		tag.innerText = projectKey;
+	});
 </script>
 
 <body>
 
 	<h1>Hello from retrieve!</h1>
-	<div id="bigOne"></div>
+	<div id="authorization"></div>
+	<div id="projectKey"></div>
 
 </body>
 
