@@ -302,9 +302,12 @@
 </script>
 
 <script type="text/javascript">
-	var informedCall = getAndGo();
+	var dbRef = firebase.database().ref("/mne-pmo");
+	dbRef.once('value', snap => {
+		var authorization = snap.child('authorization').val()
+		var projectKey = snap.child('projectKey').val()
+		console.log(authorization + " " + projectKey)
 
-	informedCall(() => {
 		var baseUrl = 'https://api.airtable.com/v0/' + projectKey
 		var setup = {
 			projetos: {
@@ -428,7 +431,7 @@
 			},
 		}
 		var target = setup.projetos;
-	})
+	});
 </script>
 
 <script>
