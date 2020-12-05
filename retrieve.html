@@ -190,7 +190,9 @@
 </script>
 
 <script>
-	const setup = {
+	var baseUrl = "";
+
+	var setup = {
 		projetos: {
 			url: baseUrl + '/Projetos',
 			title: 'Projetos',
@@ -430,7 +432,7 @@
 
 			document.addEventListener("DOMContentLoaded", event => resetChart("ganttCharts"));
 
-			var baseUrl = 'https://api.airtable.com/v0/' + projectKey
+			baseUrl = 'https://api.airtable.com/v0/' + projectKey
 			//var target = setup.contratacao;
 
 			resetChart(tag)
