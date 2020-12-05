@@ -92,7 +92,13 @@
 </script>
 
 <script type="text/javascript">
-	// An AirTable table adapter for Google Charts
+	var dbRef = firebase.database().ref("/mne-pmo");
+	dbRef.once('value', snap => {
+		var authorization = snap.child('authorization').val()
+		var projectKey = snap.child('projectKey').val()
+		console.log(authorization + " " + projectKey)
+
+			// An AirTable table adapter for Google Charts
 	function mneAdapter(airtableData, presenter) {
 		var rows = []
 		airtableData.records.forEach(item => {
@@ -299,16 +305,8 @@
 	}
 
 	document.addEventListener("DOMContentLoaded", event => resetChart("ganttCharts"));
-</script>
 
-<script type="text/javascript">
-	var dbRef = firebase.database().ref("/mne-pmo");
-	dbRef.once('value', snap => {
-		var authorization = snap.child('authorization').val()
-		var projectKey = snap.child('projectKey').val()
-		console.log(authorization + " " + projectKey)
-
-		var baseUrl = 'https://api.airtable.com/v0/' + projectKey
+	var baseUrl = 'https://api.airtable.com/v0/' + projectKey
 		var setup = {
 			projetos: {
 				url: baseUrl + '/Projetos',
