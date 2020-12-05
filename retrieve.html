@@ -40,10 +40,12 @@
 	var bigOne = document.getElementById('bigOne');
 	var dbRef = firebase.database().ref("/mne-pmo");
 	console.log("going");
-	dbRef.on('value', snap => {
+	dbRef.on('child_added', snap => {
 		console.log("OK-------------------------------------------------");
-		console.log("result: " + snap.val());
-		bigOne.innerText = snap.val();
+		var mnePmo = snap.value()
+		console.log("authorization: " + mnePmo.authorization);
+		bigOne.innerText = mnePmo.authorization;
+		console.log("projectKey: " + mnePmo.projectKey);
 	});
 	console.log("gone");
 </script>
