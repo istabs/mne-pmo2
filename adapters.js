@@ -75,6 +75,7 @@ function projetosAdapter(airtableData, presenter) {
 function integratedAdapter(airtableData, presenter) {
 	var rows = []
 	airtableData.records.sort((a, b) => a.fields.Inicio[0] < b.fields.Inicio[0]).forEach(item => {
+		console.log(item.fields.Inicio[0])
 		var preds = item.fields.Predecessores ? item.fields.Predecessores[0] : null;
 		var fim = new Date(item.fields["Fim"])
 		fim.setDate(fim.getDate() + 1)
