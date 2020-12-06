@@ -74,8 +74,8 @@ function projetosAdapter(airtableData, presenter) {
 // An AirTable table adapter for Google Charts
 function integratedAdapter(airtableData, presenter) {
 	var rows = []
-	airtableData.records.sort((a, b) => Date.parse(a.fields.Inicio[0]).getTime() - Date.parse(b.fields.Inicio[0]).getTime()).forEach(item => {
-		console.log(item.fields.Inicio[0])
+	airtableData.records.sort((a, b) => a < b).forEach(item => {
+		console.log(typeof item.fields.Inicio[0])
 		var preds = item.fields.Predecessores ? item.fields.Predecessores[0] : null;
 		var fim = new Date(item.fields["Fim"])
 		fim.setDate(fim.getDate() + 1)
