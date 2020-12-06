@@ -75,7 +75,6 @@ function projetosAdapter(airtableData, presenter) {
 function integratedAdapter(airtableData, presenter) {
 	var rows = []
 	airtableData.records.sort((a, b) => a.fields.Inicio[0] < b.fields.Inicio[0]).forEach(item => {
-		console.log(item.fields.Inicio[0])
 		var preds = item.fields.Predecessores ? item.fields.Predecessores[0] : null;
 		var fim = new Date(item.fields["Fim"])
 		fim.setDate(fim.getDate() + 1)
@@ -101,9 +100,6 @@ var projectKey = ""
 
 function fbCache(stuff, ...params) {
 	if (firebaseRead) {
-		console.log('cached')
-		console.log(authorization);
-		console.log(projectKey);
 		stuff(params);
 	} else {
 		var dbRef = firebase.database().ref("/mne-pmo");
@@ -111,7 +107,6 @@ function fbCache(stuff, ...params) {
 			firebaseRead = true;
 			authorization = snap.child('authorization').val();
 			projectKey = snap.child('projectKey').val();
-			console.log('caching now')
 			stuff(params);
 		});
 	}
