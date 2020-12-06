@@ -1,4 +1,4 @@
-	h1,p,text,.menuItems { font-family: sans-serif !important; }
+	h1,p,text,.menuItems,#loader { font-family: sans-serif !important; }
 
 	/* Dropdown Button */
 	.dropbtn, .resetbtn {
