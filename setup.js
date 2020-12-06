@@ -1,8 +1,8 @@
 var setup = {
-	projetos: {
-		url: baseUrl + '/Projetos',
-		title: 'Projetos',
-		adapt: projetosAdapter,
+	prr: {
+		url: baseUrl + '/PRR',
+		title: 'PRR',
+		adapt: prrAdapter,
 		height: 23 * 42 + 40,
 		count: 23,
 		palette: [
@@ -15,7 +15,7 @@ var setup = {
 	},
 	execucao: {
 		url: baseUrl + '/Execução',
-		resourcesUrl: baseUrl + '/Projetos',
+		resourcesUrl: baseUrl + '/PRR',
 		title: 'Execução',
 		adapt: execucaoAdapter,
 		height: 68 * 42 + 40,
@@ -102,7 +102,7 @@ var setup = {
 	},
 	a20: {
 		url: baseUrl + '/A20',
-		resourcesUrl: baseUrl + '/Projetos',
+		resourcesUrl: baseUrl + '/PRR',
 		title: 'A20',
 		subtitle: 'Concurso Público',
 		adapt: mneAdapter,
@@ -111,7 +111,7 @@ var setup = {
 	},
 	s20: {
 		url: baseUrl + '/S20',
-		resourcesUrl: baseUrl + '/Projetos',
+		resourcesUrl: baseUrl + '/PRR',
 		title: 'S20',
 		subtitle: 'Consulta Prévia',
 		adapt: mneAdapter,

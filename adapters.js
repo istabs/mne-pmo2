@@ -52,7 +52,7 @@ function detailsAdapter(id, airtableData, presenter) {
 }
 
 // An AirTable table adapter for Google Charts
-function projetosAdapter(airtableData, presenter) {
+function prrAdapter(airtableData, presenter) {
 	var rows = []
 	airtableData.records.forEach(item => {
 		var fim = new Date(item.fields["Fim"])
@@ -121,8 +121,8 @@ function execucaoAdapter(airtableData, presenter) {
 				xhr.setRequestHeader("Authorization", authorization)
 			},
 			success: function (rawData) {
-				projetos = {};
-				rawData.records.forEach(item => projetos[item.id] = item.fields.Projeto);
+				prr = {};
+				rawData.records.forEach(item => prr[item.id] = item.fields.Projeto);
 				var rows = []
 				airtableData.records.forEach(item => {
 					var fim = new Date(item.fields["Fim"])
@@ -131,7 +131,7 @@ function execucaoAdapter(airtableData, presenter) {
 					rows.push([
 						item.id, // Task ID
 						item.fields["Projeto"], // Task Name
-						projetos[item.fields["Projeto Alvo"][0]], // Group (string)
+						prr[item.fields["PRR"][0]], // Group (string)
 						new Date(item.fields["Inicio"]), // Start Date
 						fim, // End Date
 						null, // Duration (number)
