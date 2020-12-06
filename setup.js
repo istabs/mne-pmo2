@@ -51,8 +51,8 @@ var setup = {
 		resourcesUrl: baseUrl + '/Procedimentos',
 		title: 'Contratação',
 		adapt: contratacaoAdapter,
-		height: 38 * 42 + 40,
-		count: 38,
+		height: 34 * 42 + 40,
+		count: 34,
 		palette: [
 			{ "color": "#5e97f6", "dark": "#2a56c6", "light": "#c6dafc" },
 			{ "color": "#db4437", "dark": "#a52714", "light": "#f4c7c3" },
