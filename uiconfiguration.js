@@ -8,7 +8,17 @@ var uiConfig = {
 		{
 			provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
 			signInMethod: firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD
-		}
+		},
+		{
+			provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+			recaptchaParameters: {
+				type: 'image', // 'audio'
+				size: 'normal', // 'invisible' or 'compact'
+				badge: 'bottomleft' //' bottomright' or 'inline' applies to invisible.
+			},
+			defaultCountry: 'PT',
+			loginHint: '+3519xxxxxxxx'
+		},
 	],
 	// tosUrl and privacyPolicyUrl accept either url string or a callback
 	// function.
