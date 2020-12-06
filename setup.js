@@ -18,8 +18,8 @@ var setup = {
 		resourcesUrl: baseUrl + '/Projetos',
 		title: 'Execução',
 		adapt: execucaoAdapter,
-		height: 60 * 42 + 40,
-		count: 60,
+		height: 64 * 42 + 40,
+		count: 64,
 		palette: [
 			{ "color": "#34568B", "dark": "MediumBlue", "light": "LightGray" },
 			{ "color": "#CD212A", "dark": "MediumBlue", "light": "LightGray" },
@@ -51,8 +51,8 @@ var setup = {
 		resourcesUrl: baseUrl + '/Procedimentos',
 		title: 'Contratação',
 		adapt: contratacaoAdapter,
-		height: 17 * 42 + 40,
-		count: 17,
+		height: 18 * 42 + 40,
+		count: 18,
 		palette: [
 			{ "color": "#5e97f6", "dark": "#2a56c6", "light": "#c6dafc" },
 			{ "color": "#db4437", "dark": "#a52714", "light": "#f4c7c3" },
@@ -72,8 +72,8 @@ var setup = {
 		url: baseUrl + '/Visão Integrada',
 		title: 'Visão Integrada',
 		adapt: integratedAdapter,
-		height: 100 * 42 + 40,
-		count: 72,
+		height: 101 * 42 + 40,
+		count: 101,
 		palette: [
 			{ "color": "#34568B", "dark": "MediumBlue", "light": "LightGray" },
 			{ "color": "#CD212A", "dark": "MediumBlue", "light": "LightGray" },
