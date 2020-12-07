@@ -42,15 +42,13 @@ crossorigin="anonymous">
 	}
 
 	function setMenu (ganttTag) {
-		fbCache((ganttTag) => {
-			baseUrl = 'https://api.airtable.com/v0/' + projectKey;
-			setup = getSetup(baseUrl);
-			var links = "";
-			Object.entries(setup).forEach(item => {
-				links +="<a class='menuItems' onclick=\"fromMenu('" + item[0] + "')\" href=\"#\">" + item[1].title + "</a>"
-			});
-			document.getElementById(ganttTag).innerHTML = links
-		}, ganttTag);
+		baseUrl = 'https://api.airtable.com/v0/' + projectKey;
+		setup = getSetup(baseUrl);
+		var links = "";
+		Object.entries(setup).forEach(item => {
+			links +="<a class='menuItems' onclick=\"fromMenu('" + item[0] + "')\" href=\"#\">" + item[1].title + "</a>"
+		});
+		document.getElementById(ganttTag).innerHTML = links
 	}
 
 	document.addEventListener("DOMContentLoaded", event => resetChart("ganttCharts"));
@@ -61,8 +59,10 @@ crossorigin="anonymous">
 <script type="text/javascript" src="setup.js"></script>
 
 <script type="text/javascript">
-	var target = setup.contratacao;		
-	resetChart('ganttCharts')
+	fbCache(() => {
+		var target = setup.contratacao;		
+		resetChart('ganttCharts')
+	});
 </script>
 
 <script>
