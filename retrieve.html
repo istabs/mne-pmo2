@@ -37,8 +37,10 @@ crossorigin="anonymous">
 	var setup = getSetup(baseUrl);
 
 	function fromMenu(choice) {
-		target=setup[choice];
-		resetChart('ganttCharts');
+		fbCache(() => {
+			target=setup[choice];
+			resetChart('ganttCharts');
+		});
 	}
 
 	function setMenu (ganttTag) {
@@ -59,10 +61,11 @@ crossorigin="anonymous">
 <script type="text/javascript" src="setup.js"></script>
 
 <script type="text/javascript">
-	fbCache(() => {
-		var target = setup.contratacao;		
-		resetChart('ganttCharts')
-	});
+	fromMenu('contratacao')
+//	fbCache(() => {
+//		var target = setup.contratacao;		
+//		resetChart('ganttCharts')
+//	});
 </script>
 
 <script>
