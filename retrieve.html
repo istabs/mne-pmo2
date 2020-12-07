@@ -32,7 +32,8 @@
 
 <script type="text/javascript">
 
-	var baseUrl = "";
+	var baseUrl = 'https://api.airtable.com/v0/' + 'appWkcknvBGRx31f8'
+	var setup = getSetup(baseUrl);
 
 	function fromMenu(choice) {
 		target=setup[choice];
@@ -49,7 +50,6 @@
 
 	document.addEventListener("DOMContentLoaded", event => resetChart("ganttCharts"));
 
-	baseUrl = 'https://api.airtable.com/v0/' + 'appWkcknvBGRx31f8'
 	//var target = setup.contratacao;
 </script>
 
