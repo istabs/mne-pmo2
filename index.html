@@ -51,13 +51,17 @@
 						//accessToken: accessToken,
 						//providerData: providerData
 					}, null, '  ');
+					document.getElementById('email').textContent = email;
+					document.getElementById('estado').textContent = emailVerified;
 				});
 			} else {
 				// User is signed out.
 				document.getElementById('sign-in-status').textContent = 'inativo';
 				//document.getElementById('sign-in').textContent = 'Sign in';
-				document.getElementById('account-details').textContent = 'null';
-			}
+				document.getElementById('account-details').textContent = '';
+				document.getElementById('email').textContent = '';
+				document.getElementById('estado').textContent = '';
+		}
 		}, function (error) {
 			console.log(error);
 		});
@@ -73,6 +77,10 @@
 	<p>O estado de sessão é <span id="sign-in-status"></span>.</p>
 	<div id="sign-in"></div>
 	<p>Detalhes:</p>
+	<ul>
+		<li>email: <span id="email"></span></li>
+		<li>estado: <span id="estado"></span></li>
+	</ul>
 	<pre id="account-details"></pre>
 	<button onclick="location.href = 'retrieve.html';" autofocus>Continuar</button>
 </body>
