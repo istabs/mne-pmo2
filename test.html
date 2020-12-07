@@ -26,6 +26,22 @@
 	ui.start('#firebaseui-auth-container', uiConfig)
 </script>
 
+<script>
+	function fbCache(stuff, ...params) {
+		if (firebaseRead) {
+			stuff(params);
+		} else {
+			var dbRef = firebase.database().ref("/mne-pmo");
+			dbRef.once('value', snap => {
+				firebaseRead = true;
+				authorization = snap.child('data').child('authorization').val();
+				projectKey = snap.child('data').child('projectKey').val();
+				stuff(params);
+			});
+		}
+	}
+</script>
+
 <script type="text/javascript">
 	initApp = function () {
 		firebase.auth().onAuthStateChanged(function (user) {
@@ -54,6 +70,10 @@
 					//}, null, '  ');
 					document.getElementById('email').textContent = email;
 					document.getElementById('estado').textContent = emailVerified;
+					fbCache((a, p)=>{
+						console.log(a)
+						console.log(p)
+					}, authorization, projectKey)
 				});
 			} else {
 				// User is signed out.
@@ -69,23 +89,6 @@
 	};
 
 	window.addEventListener('load', () => initApp());
-</script>
-
-
-<script>
-	function fbCache(stuff, ...params) {
-		if (firebaseRead) {
-			stuff(params);
-		} else {
-			var dbRef = firebase.database().ref("/mne-pmo");
-			dbRef.once('value', snap => {
-				firebaseRead = true;
-				authorization = snap.child('data').child('authorization').val();
-				projectKey = snap.child('data').child('projectKey').val();
-				stuff(params);
-			});
-		}
-	}
 </script>
 
 <body>
