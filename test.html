@@ -27,6 +27,7 @@
 </script>
 
 <script>
+	var firebaseRead = false;
 	function fbCache(stuff, ...params) {
 		if (firebaseRead) {
 			stuff(params);
