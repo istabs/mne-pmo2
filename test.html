@@ -33,7 +33,7 @@
 		if (firebaseRead) {
 			stuff(params);
 		} else {
-			var dbRef = firebase.database().ref("/mne-pmo");
+			var dbRef = firebase.database().ref("/tst");
 			dbRef.once('value', snap => {
 				console.log("in fb")
 				firebaseRead = true;
