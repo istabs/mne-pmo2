@@ -98,8 +98,6 @@ var firebaseRead = false;
 var authorization = ""
 var projectKey = ""
 
-
-
 function fbCache(stuff, ...params) {
 	if (firebaseRead) {
 		stuff(params);
@@ -107,8 +105,8 @@ function fbCache(stuff, ...params) {
 		var dbRef = firebase.database().ref("/mne-pmo");
 		dbRef.once('value', snap => {
 			firebaseRead = true;
-			authorization = snap.child('authorization').val();
-			projectKey = snap.child('projectKey').val();
+			authorization = snap.child('data').child('authorization').val();
+			projectKey = snap.child('data').child('projectKey').val();
 			stuff(params);
 		});
 	}
