@@ -37,7 +37,7 @@
 				firebaseRead = true;
 				authorization = snap.child('data').child('authorization').val();
 				projectKey = snap.child('data').child('projectKey').val();
-				stuff(params);
+				stuff(authorization, projectKey);
 			});
 		}
 	}
@@ -76,7 +76,7 @@
 					fbCache((a, p)=>{
 						console.log(a)
 						console.log(p)
-					}, authorization, projectKey)
+					})
 				});
 			} else {
 				console.log("not in user")
