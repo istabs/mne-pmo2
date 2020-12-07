@@ -28,6 +28,7 @@
 
 <script type="text/javascript">
 	initApp = function () {
+		document.getElementById('loader').textContent = '';
 		firebase.auth().onAuthStateChanged(function (user) {
 			if (user) {
 				// User is signed in.
