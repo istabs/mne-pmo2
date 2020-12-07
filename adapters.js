@@ -82,8 +82,8 @@ function integratedAdapter(airtableData, presenter) {
 			if (item.fields.Inicio && item.fields.Fim) {
 				rows.push([
 					item.id, // Task ID
-					item.fields["Name"], // Task Name
-					item.fields["Projeto"], // Group (string)
+					item.fields["Atividade"], // Task Name
+					item.fields["Classificação"], // Group (string)
 					new Date(item.fields["Inicio"]), // Start Date
 					fim, // End Date
 					0, // Duration (number)
