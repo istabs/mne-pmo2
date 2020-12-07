@@ -28,8 +28,8 @@
 
 <script type="text/javascript">
 	initApp = function () {
-		document.getElementById('loader').textContent = '';
 		firebase.auth().onAuthStateChanged(function (user) {
+			document.getElementById('loader').textContent = '';
 			if (user) {
 				// User is signed in.
 				var displayName = user.displayName;
