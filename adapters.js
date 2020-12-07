@@ -63,8 +63,8 @@ function prrAdapter(airtableData, presenter) {
 			item.fields["Criticidade"], // Group (string)
 			new Date(item.fields["Inicio"]), // Start Date
 			fim, // End Date
-			null, // Duration (number)
-			null, // Percent Complete (number)
+			0, // Duration (number)
+			0, // Percent Complete (number)
 			null, // Dependencies (string / comma separated)
 		]);
 	});
@@ -75,20 +75,22 @@ function prrAdapter(airtableData, presenter) {
 function integratedAdapter(airtableData, presenter) {
 	var rows = []
 	airtableData.records.sort((a, b) => Date.parse(a.fields.Inicio[0]) - Date.parse(b.fields.Inicio[0])).forEach(item => {
-		var preds = item.fields.Predecessores ? item.fields.Predecessores[0] : null;
-		var fim = new Date(item.fields["Fim"])
-		fim.setDate(fim.getDate() + 1)
-		if (item.fields.Inicio && item.fields.Fim) {
-			rows.push([
-				item.id, // Task ID
-				item.fields["Name"], // Task Name
-				item.fields["Projeto"], // Group (string)
-				new Date(item.fields["Inicio"]), // Start Date
-				fim, // End Date
-				null, // Duration (number)
-				0, // Percent Complete (number)
-				preds, // Dependencies (string / comma separated)
-			]);
+		if (item.fields["Sumário"]) {
+			var preds = item.fields.Predecessores ? item.fields.Predecessores[0] : null;
+			var fim = new Date(item.fields["Fim"])
+			fim.setDate(fim.getDate() + 1)
+			if (item.fields.Inicio && item.fields.Fim) {
+				rows.push([
+					item.id, // Task ID
+					item.fields["Name"], // Task Name
+					item.fields["Projeto"], // Group (string)
+					new Date(item.fields["Inicio"]), // Start Date
+					fim, // End Date
+					0, // Duration (number)
+					0, // Percent Complete (number)
+					preds, // Dependencies (string / comma separated)
+				]);
+			}
 		}
 	});
 	presenter(rows);
