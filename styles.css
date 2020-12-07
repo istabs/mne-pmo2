@@ -1,5 +1,7 @@
 	body,h1,p,text,.menuItems,#loader { font-family: sans-serif !important; }
 
+	resetButton { padding: 1.5em;}
+
 	/* Dropdown Button */
 	.dropbtn, .resetbtn {
 	cursor: pointer;
