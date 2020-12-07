@@ -32,7 +32,8 @@ crossorigin="anonymous">
 
 <script type="text/javascript">
 
-	var baseUrl = 'https://api.airtable.com/v0/' + 'appWkcknvBGRx31f8'
+	var baseUrl = ''
+//	var baseUrl = 'https://api.airtable.com/v0/' + 'appWkcknvBGRx31f8'
 	var setup = getSetup(baseUrl);
 
 	function fromMenu(choice) {
@@ -41,11 +42,15 @@ crossorigin="anonymous">
 	}
 
 	function setMenu (ganttTag) {
-		var links = "";
-		Object.entries(setup).forEach(item => {
-			links +="<a class='menuItems' onclick=\"fromMenu('" + item[0] + "')\" href=\"#\">" + item[1].title + "</a>"
-		});
-		document.getElementById(ganttTag).innerHTML = links
+		fbCache((ganttTag) => {
+			baseUrl = 'https://api.airtable.com/v0/' + projectKey;
+			setup = getSetup(baseUrl);
+			var links = "";
+			Object.entries(setup).forEach(item => {
+				links +="<a class='menuItems' onclick=\"fromMenu('" + item[0] + "')\" href=\"#\">" + item[1].title + "</a>"
+			});
+			document.getElementById(ganttTag).innerHTML = links
+		}, ganttTag);
 	}
 
 	document.addEventListener("DOMContentLoaded", event => resetChart("ganttCharts"));

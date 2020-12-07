@@ -98,6 +98,8 @@ var firebaseRead = false;
 var authorization = ""
 var projectKey = ""
 
+
+
 function fbCache(stuff, ...params) {
 	if (firebaseRead) {
 		stuff(params);
