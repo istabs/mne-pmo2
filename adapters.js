@@ -208,8 +208,8 @@ function resetChart(ganttTag) {
 						success: function (rawData1) {
 							const HTML_POSITION = 'chart_div';
 							
-							rawData.forEach((record1) => {
-								rawData.records.records.push(record)
+							rawData1.records.forEach((record) => {
+								rawData.records.push(record)
 							})
 
 							var gantt = {
