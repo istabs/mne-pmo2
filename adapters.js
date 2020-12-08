@@ -197,7 +197,7 @@ function resetChart(ganttTag) {
 				xhr.setRequestHeader("Authorization", authorization)
 			},
 			success: function (rawData) {
-				if (rawData.records.offset) {
+				if (rawData.offset) {
 					console.log("has offset");
 					let newUrl = url.searchParams.append('offset', rawData.records.offset)
 					$.ajax({
