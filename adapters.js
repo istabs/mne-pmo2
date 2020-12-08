@@ -35,7 +35,7 @@ function detailsAdapter(id, airtableData, presenter) {
 		if (item.id === id || (item.fields["Classificação"] && item.fields["Classificação"] === classificacao)) {
 			var fim = new Date(item.fields["Fim"])
 			fim.setDate(fim.getDate() + 1)
-			if (item.fields.Inicio && item.fields.Fim)
+			if (item.fields.Inicio && item.fields.Fim) {
 				rows.push([
 					item.id, // Task ID
 					item.fields["Atividade"], // Task Name
@@ -46,6 +46,10 @@ function detailsAdapter(id, airtableData, presenter) {
 					item.fields["Progresso"], // Percent Complete
 					null, // Dependencies
 				]);
+			} else {
+				console.log('no date:')
+				console.log(item.fields)
+			}
 		}
 	});
 	presenter(rows);
