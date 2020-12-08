@@ -73,8 +73,8 @@ var getSetup = function(baseUrl) {
 			url: baseUrl + '/Visão Integrada',
 			title: 'Visão Integrada',
 			adapt: integratedAdapter,
-			height: 17 * 42 + 40,
-			count: 17,
+			height: 30 * 42 + 40,
+			count: 30,
 			palette: [
 				{ "color": "#34568B", "dark": "MediumBlue", "light": "LightGray" },
 				{ "color": "#CD212A", "dark": "MediumBlue", "light": "LightGray" },
