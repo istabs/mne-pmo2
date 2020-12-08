@@ -190,28 +190,59 @@ function resetChart(ganttTag) {
 		if (target.title) {
 			document.getElementById("chart_title_div").innerHTML = target.title + (target.subtitle ? " - " + target.subtitle : "")
 		}
+		let url = new URL(target.url);
 		$.ajax({
-			url: target.url,
+			url: url,
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Authorization", authorization)
 			},
 			success: function (rawData) {
-				console.log(rawData)
-				const HTML_POSITION = 'chart_div';
+				if (rawData.records.offset) {
+					console.log("has offset");
+					let newUrl = url.searchParams.append('offset', rawData.records.offset)
+					$.ajax({
+						url: newUrl,
+						beforeSend: function (xhr) {
+							xhr.setRequestHeader("Authorization", authorization)
+						},
+						success: function (rawData1) {
+							const HTML_POSITION = 'chart_div';
+							
+							rawData.records.forEach((record1) => {
+								rawData.records.records.push(record)
+							})
 
-				var gantt = {
-					sortTasks: true,
-					criticalPathEnabled: false,
-					criticalPathStyle: { strokeWidth: 0, stroke: '#e64a19', },
-					arrow: { width: 0, radius: 10, length: 0, spaceAfter: -275, },
-				};
-				if (target.palette) gantt['palette'] = target.palette;
+							var gantt = {
+								sortTasks: true,
+								criticalPathEnabled: false,
+								criticalPathStyle: { strokeWidth: 0, stroke: '#e64a19', },
+								arrow: { width: 0, radius: 10, length: 0, spaceAfter: -275, },
+							};
+							if (target.palette) gantt['palette'] = target.palette;
+			
+							var options = {gantt: gantt, height: target.height, width: 960, };
+			
+							var presenter = _.partial(presentGantt, HTML_POSITION, options, rawData);
+							google.charts.setOnLoadCallback(() => googleChartAirtableAdapt(rawData, target.adapt, presenter));	
+						}
+					})
+				} else {
+					const HTML_POSITION = 'chart_div';
 
-				var options = {gantt: gantt, height: target.height, width: 960, };
-
-				var presenter = _.partial(presentGantt, HTML_POSITION, options, rawData);
-				google.charts.setOnLoadCallback(() => googleChartAirtableAdapt(rawData, target.adapt, presenter));
+					var gantt = {
+						sortTasks: true,
+						criticalPathEnabled: false,
+						criticalPathStyle: { strokeWidth: 0, stroke: '#e64a19', },
+						arrow: { width: 0, radius: 10, length: 0, spaceAfter: -275, },
+					};
+					if (target.palette) gantt['palette'] = target.palette;
+	
+					var options = {gantt: gantt, height: target.height, width: 960, };
+	
+					var presenter = _.partial(presentGantt, HTML_POSITION, options, rawData);
+					google.charts.setOnLoadCallback(() => googleChartAirtableAdapt(rawData, target.adapt, presenter));	
+				}
 			}
 		})
-	}, null, null)
+	})
 }
