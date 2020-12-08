@@ -204,6 +204,7 @@ function resetChart(ganttTag) {
 				xhr.setRequestHeader("Authorization", authorization)
 			},
 			success: function (rawData) {
+				console.log(rawData)
 				const HTML_POSITION = 'chart_div';
 
 				var gantt = {
