@@ -32,10 +32,17 @@ function detailsAdapter(id, airtableData, presenter) {
 		if (item.id === id) classificacao = item.fields["Classificação"]
 	})
 	airtableData.records.forEach(item => {
+		console.log(item)
+		if (item.id === id) {
+			console.log("id: " + item.id)
+		}
+		if (item.fields["Classificação"] && item.fields["Classificação"] === classificacao) {
+			console.log("classificação: " + item.fields["Atividade"])
+		}
 		if (item.id === id || (item.fields["Classificação"] && item.fields["Classificação"] === classificacao)) {
-			var fim = new Date(item.fields["Fim"])
-			fim.setDate(fim.getDate() + 1)
 			if (item.fields.Inicio && item.fields.Fim) {
+				let fim = new Date(item.fields["Fim"])
+				fim.setDate(fim.getDate() + 1)
 				rows.push([
 					item.id, // Task ID
 					item.fields["Atividade"], // Task Name
