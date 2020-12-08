@@ -32,13 +32,6 @@ function detailsAdapter(id, airtableData, presenter) {
 		if (item.id === id) classificacao = item.fields["Classificação"]
 	})
 	airtableData.records.forEach(item => {
-		console.log(item)
-		if (item.id === id) {
-			console.log("id: " + item.id)
-		}
-		if (item.fields["Classificação"] && item.fields["Classificação"] === classificacao) {
-			console.log("classificação: " + item.fields["Atividade"])
-		}
 		if (item.id === id || (item.fields["Classificação"] && item.fields["Classificação"] === classificacao)) {
 			if (item.fields.Inicio && item.fields.Fim) {
 				let fim = new Date(item.fields["Fim"])
@@ -54,8 +47,7 @@ function detailsAdapter(id, airtableData, presenter) {
 					null, // Dependencies
 				]);
 			} else {
-				console.log('no date:')
-				console.log(item.fields)
+				console.log('missing date on ' + item.id + ', ' + item.fields.Atividade)
 			}
 		}
 	});
