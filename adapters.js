@@ -190,7 +190,7 @@ function resetChart(ganttTag) {
 		if (target.title) {
 			document.getElementById("chart_title_div").innerHTML = target.title + (target.subtitle ? " - " + target.subtitle : "")
 		}
-		let url = new URL(target.url);
+		let url = target.url;
 		$.ajax({
 			url: url,
 			beforeSend: function (xhr) {
@@ -199,7 +199,7 @@ function resetChart(ganttTag) {
 			success: function (rawData) {
 				if (rawData.offset) {
 					console.log("has offset");
-					let newUrl = url.searchParams.append('offset', rawData.records.offset)
+					let newUrl = url + '?offset=' + rawData.offset
 					$.ajax({
 						url: newUrl,
 						beforeSend: function (xhr) {
