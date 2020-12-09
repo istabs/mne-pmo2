@@ -17,6 +17,7 @@ body, h1, p, text, .menuItems, #loader {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
+	-webkit-border-radius: 12px;
 }
 
 /* The container <div> - needed to position the dropdown content */
