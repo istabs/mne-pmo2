@@ -187,8 +187,8 @@ function resetChart(ganttTag) {
 
 		setMenu(ganttTag)
 
-		if (target.title) {
-			document.getElementById("chart_title_div").innerHTML = target.title + (target.subtitle ? " - " + target.subtitle : "")
+		if (target && target.title) {
+			document.getElementById("chart_title_div").textContent = target.title + (target.subtitle ? " - " + target.subtitle : "")
 		}
 		let url = target.url;
 		$.ajax({
