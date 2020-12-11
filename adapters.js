@@ -38,10 +38,8 @@ function detailsAdapter(id, airtableData, presenter, options={chart_subtitle: 'c
 				document.getElementById(options.chart_subtitle).textContent = item.fields["Atividade"].replace(SUMARIO,'');
 				summary = item.id
 			}
-		} else {
-			if (item.fields.Predecessores && item.fields.Predecessores[0] === summary && item.id && item.fields.Atividade)
-				classifications[item.id] = item.fields.Atividade;
 		}
+		classifications[item.id] = item.fields.Atividade;
 	})
 	airtableData.records.forEach(item => {
 		if (item.id === id || (item.fields["Classificação"] && item.fields["Classificação"] === classificacao)) {
@@ -49,8 +47,11 @@ function detailsAdapter(id, airtableData, presenter, options={chart_subtitle: 'c
 				let fim = new Date(item.fields["Fim"])
 				fim.setDate(fim.getDate() + 1)
 				let classification = '';
-				if (item.fields['Classificação']) {
-					classification = classifications[item.fields.Predecessores]
+				if (item.fields[Predecessores][0]) {
+					classification = classifications[item.fields.Predecessores][0]
+					if (classification.includes(SUMARIO)) {
+						classification = classifications[item.id]
+					}
 				}
 				console.log(item)
 				rows.push([
