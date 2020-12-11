@@ -34,6 +34,8 @@ function detailsAdapter(id, airtableData, presenter, options={chart_subtitle: 'c
 			classificacao = item.fields["Classificação"];
 			if (item.fields && item.fields["Atividade"] && item.fields["Atividade"].includes(SUMARIO)) {
 				document.getElementById(options.chart_subtitle).textContent = item.fields["Atividade"].replace(SUMARIO,'');
+			} else {
+				console.log(item)
 			}
 		}
 	})
@@ -205,7 +207,6 @@ function resetChart(ganttTag, chrtOptions={chart: 'chart', chart_title: 'chart_t
 			},
 			success: function (rawData) {
 				if (rawData.offset) {
-					console.log("has offset");
 					let newUrl = url + '?offset=' + rawData.offset
 					$.ajax({
 						url: newUrl,
