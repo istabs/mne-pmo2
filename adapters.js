@@ -28,14 +28,14 @@ function mneAdapter(airtableData, presenter) {
 function detailsAdapter(id, airtableData, presenter, options={chart_subtitle: 'chart_subtitle'}) {
 	var rows = []
 	var classificacao = ""
+	var precedent = ""
 	airtableData.records.forEach(item => {
 		if (item.id === id) {
 			const SUMARIO = ': Sumário'
 			classificacao = item.fields["Classificação"];
 			if (item.fields && item.fields["Atividade"] && item.fields["Atividade"].includes(SUMARIO)) {
 				document.getElementById(options.chart_subtitle).textContent = item.fields["Atividade"].replace(SUMARIO,'');
-			} else {
-				console.log(item)
+				precedent = item.fields["Atividade"]
 			}
 		}
 	})
@@ -44,6 +44,8 @@ function detailsAdapter(id, airtableData, presenter, options={chart_subtitle: 'c
 			if (item.fields.Inicio && item.fields.Fim) {
 				let fim = new Date(item.fields["Fim"])
 				fim.setDate(fim.getDate() + 1)
+				let classification = precedent === "" ? item.fields["Classificação"] : "ok"
+				console.log(item)
 				rows.push([
 					item.id, // Task ID
 					item.fields["Atividade"], // Task Name
