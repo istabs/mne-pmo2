@@ -32,7 +32,7 @@ function detailsAdapter(id, airtableData, presenter, options={chart_subtitle: 'c
 		if (item.id === id) {
 			const SUMARIO = ':Sumário'
 			classificacao = item.fields["Classificação"];
-			if (item.fields["Atividade"].includes(SUMARIO)) {
+			if (item.fields && item.fields["Atividade"] && item.fields["Atividade"].includes(SUMARIO)) {
 				document.getElementById(options.chart_subtitle).textContent = item.fields["Atividade"].replace(SUMARIO,'');
 			}
 		}
