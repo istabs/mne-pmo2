@@ -26,11 +26,16 @@ function mneAdapter(airtableData, presenter) {
 
 // An AirTable table adapter for Google Charts
 function detailsAdapter(id, airtableData, presenter, options={chart_subtitle: 'chart_subtitle'}) {
-	document.getElementById(options.chart_subtitle).textContent = "Details";
 	var rows = []
 	var classificacao = ""
 	airtableData.records.forEach(item => {
-		if (item.id === id) classificacao = item.fields["Classificação"]
+		if (item.id === id) {
+			const SUMARIO = ':Sumário'
+			classificacao = item.fields["Classificação"];
+			if (item.fields["Atividade"].includes(SUMARIO)) {
+				document.getElementById(options.chart_subtitle).textContent = item.fields["Atividade"].replace(SUMARIO,'');
+			}
+		}
 	})
 	airtableData.records.forEach(item => {
 		if (item.id === id || (item.fields["Classificação"] && item.fields["Classificação"] === classificacao)) {
