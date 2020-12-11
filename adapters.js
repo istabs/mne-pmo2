@@ -146,7 +146,10 @@ function execucaoAdapter(airtableData, presenter) {
 				prr = {};
 				rawData.records.forEach(item => prr[item.id] = item.fields.Projeto);
 				var rows = []
-				airtableData.records.sort((a, b) => Date.parse(a.fields.Inicio[0]) - Date.parse(b.fields.Inicio[0])).forEach(item => {
+				airtableData.records
+							.sort((a, b) => Date.parse(a.fields.Inicio[0]) - Date.parse(b.fields.Inicio[0]))
+							.sort((a, b) => Date.parse(a.fields.Grupo) - Date.parse(b.fields.Grupo))
+							.forEach(item => {
 					var fim = new Date(item.fields["Fim"])
 					var preds = item.fields['Finish-Start'] ? item.fields['Finish-Start'][0] : null;
 					fim.setDate(fim.getDate() + 1)
