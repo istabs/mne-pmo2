@@ -25,7 +25,8 @@ function mneAdapter(airtableData, presenter) {
 }
 
 // An AirTable table adapter for Google Charts
-function detailsAdapter(id, airtableData, presenter) {
+function detailsAdapter(id, airtableData, presenter, options={chart_subtitle: 'chart_subtitle'}) {
+	document.getElementById(options.chart_subtitle).textContent = "Details";
 	var rows = []
 	var classificacao = ""
 	airtableData.records.forEach(item => {
@@ -182,13 +183,14 @@ function contratacaoAdapter(airtableData, presenter) {
 	, airtableData, presentGantt)
 }
 
-function resetChart(ganttTag) {
+function resetChart(ganttTag, options={chart: 'chart', chart_title: 'chart_title', chart_subtitle: 'chart_subtitle', }) {
 	fbCache(() => {
 
 		setMenu(ganttTag)
 
 		if (target && target.title) {
-			document.getElementById("chart_title_div").textContent = target.title + (target.subtitle ? " - " + target.subtitle : "")
+			document.getElementById(options.chart_title).textContent = target.title + (target.subtitle ? " - " + target.subtitle : "");
+			document.getElementById(options.chart_subtitle).textContent = "";
 		}
 		let url = target.url;
 		$.ajax({
@@ -206,7 +208,7 @@ function resetChart(ganttTag) {
 							xhr.setRequestHeader("Authorization", authorization)
 						},
 						success: function (rawData1) {
-							const HTML_POSITION = 'chart_div';
+							const HTML_POSITION = options.chart;
 							
 							rawData1.records.forEach((record) => {
 								rawData.records.push(record)
@@ -227,7 +229,7 @@ function resetChart(ganttTag) {
 						}
 					})
 				} else {
-					const HTML_POSITION = 'chart_div';
+					const HTML_POSITION = options.chart;
 
 					var gantt = {
 						sortTasks: true,

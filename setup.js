@@ -19,8 +19,8 @@ var getSetup = function(baseUrl) {
 			resourcesUrl: baseUrl + '/PRR',
 			title: 'Execução',
 			adapt: execucaoAdapter,
-			height: 80 * 42 + 40,
-			count: 80,
+			height: 78 * 42 + 40,
+			count: 78,
 			palette: [
 				{ "color": "#34568B", "dark": "MediumBlue", "light": "LightGray" },
 				{ "color": "#CD212A", "dark": "MediumBlue", "light": "LightGray" },
@@ -73,8 +73,8 @@ var getSetup = function(baseUrl) {
 			url: baseUrl + '/Visão Integrada',
 			title: 'Visão Integrada',
 			adapt: integratedAdapter,
-			height: 29 * 42 + 40,
-			count: 29,
+			height: 18 * 42 + 40,
+			count: 18,
 			palette: [
 				{ "color": "#34568B", "dark": "MediumBlue", "light": "LightGray" },
 				{ "color": "#CD212A", "dark": "MediumBlue", "light": "LightGray" },
