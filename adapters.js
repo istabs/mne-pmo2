@@ -17,7 +17,8 @@ function mneAdapter(airtableData, presenter) {
 				fim, // End Date
 				0, // Duration
 				item.fields["Progresso"], // Percent Complete
-				deps // Dependencies
+				deps, // Dependencies
+				"mneAdapter",
 			]);
 		}
 	});
@@ -62,6 +63,7 @@ function detailsAdapter(id, airtableData, presenter, options={chart_subtitle: 'c
 					0, // Duration
 					item.fields["Progresso"], // Percent Complete
 					null, // Dependencies
+					"detailsAdapter",
 				]);
 			} else {
 				console.log('missing date on ' + item.id + ', ' + item.fields.Atividade)
@@ -86,6 +88,7 @@ function prrAdapter(airtableData, presenter) {
 			0, // Duration (number)
 			0, // Percent Complete (number)
 			null, // Dependencies (string / comma separated)
+			"prrAdapter",
 		]);
 	});
 	presenter(rows);
@@ -109,6 +112,7 @@ function integratedAdapter(airtableData, presenter) {
 					0, // Duration (number)
 					0, // Percent Complete (number)
 					preds, // Dependencies (string / comma separated)
+					"integratedAdapter",
 				]);
 			}
 		}
