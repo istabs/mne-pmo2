@@ -183,14 +183,14 @@ function contratacaoAdapter(airtableData, presenter) {
 	, airtableData, presentGantt)
 }
 
-function resetChart(ganttTag, options={chart: 'chart', chart_title: 'chart_title', chart_subtitle: 'chart_subtitle', }) {
+function resetChart(ganttTag, chrtOptions={chart: 'chart', chart_title: 'chart_title', chart_subtitle: 'chart_subtitle', }) {
 	fbCache(() => {
 
 		setMenu(ganttTag)
 
 		if (target && target.title) {
-			document.getElementById(options.chart_title).textContent = target.title + (target.subtitle ? " - " + target.subtitle : "");
-			document.getElementById(options.chart_subtitle).textContent = "";
+			document.getElementById(chrtOptions.chart_title).textContent = target.title + (target.subtitle ? " - " + target.subtitle : "");
+			document.getElementById(chrtOptions.chart_subtitle).textContent = "";
 		}
 		let url = target.url;
 		$.ajax({
@@ -208,7 +208,7 @@ function resetChart(ganttTag, options={chart: 'chart', chart_title: 'chart_title
 							xhr.setRequestHeader("Authorization", authorization)
 						},
 						success: function (rawData1) {
-							const HTML_POSITION = options.chart;
+							const HTML_POSITION = chrtOptions.chart;
 							
 							rawData1.records.forEach((record) => {
 								rawData.records.push(record)
@@ -229,7 +229,7 @@ function resetChart(ganttTag, options={chart: 'chart', chart_title: 'chart_title
 						}
 					})
 				} else {
-					const HTML_POSITION = options.chart;
+					const HTML_POSITION = chrtOptions.chart;
 
 					var gantt = {
 						sortTasks: true,
