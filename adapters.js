@@ -28,15 +28,19 @@ function mneAdapter(airtableData, presenter) {
 function detailsAdapter(id, airtableData, presenter, options={chart_subtitle: 'chart_subtitle'}) {
 	var rows = []
 	var classificacao = ""
-	var precedent = ""
+	var summary = ""
+	var classifications = {}
 	airtableData.records.forEach(item => {
 		if (item.id === id) {
 			const SUMARIO = ': Sumário'
 			classificacao = item.fields["Classificação"];
 			if (item.fields && item.fields["Atividade"] && item.fields["Atividade"].includes(SUMARIO)) {
 				document.getElementById(options.chart_subtitle).textContent = item.fields["Atividade"].replace(SUMARIO,'');
-				precedent = item.fields["Atividade"]
+				summary = item.id
 			}
+		} else {
+			if (item.fields.Predecessores && item.fields.Predecessores[0] === summary && item.id && item.fields.Atividade)
+				classifications[item.id] = item.fields.Atividade;
 		}
 	})
 	airtableData.records.forEach(item => {
@@ -44,12 +48,15 @@ function detailsAdapter(id, airtableData, presenter, options={chart_subtitle: 'c
 			if (item.fields.Inicio && item.fields.Fim) {
 				let fim = new Date(item.fields["Fim"])
 				fim.setDate(fim.getDate() + 1)
-				let classification = precedent === "" ? item.fields["Classificação"] : "ok"
+				let classification = '';
+				if (item.fields['Classificação']) {
+					classification = classifications[item.fields.Predecessores]
+				}
 				console.log(item)
 				rows.push([
 					item.id, // Task ID
 					item.fields["Atividade"], // Task Name
-					item.fields["Classificação"],
+					classification,
 					new Date(item.fields["Inicio"]), // Start Date
 					fim, // End Date
 					0, // Duration
