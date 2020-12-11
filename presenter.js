@@ -33,7 +33,6 @@ function googleChartAirtableAdapt(airtableData, airTableAdapter, viewer) {
 		table.addColumn('number', 'Duration');
 		table.addColumn('number', 'Percent Complete');
 		table.addColumn('string', 'Dependencies');
-		table.addColumn({type: 'string', role: 'tooltip'});
 		var i = 0;
 		items.forEach(item => {
 			table.addRow(item);
