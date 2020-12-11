@@ -48,7 +48,7 @@ function detailsAdapter(id, airtableData, presenter, options={chart_subtitle: 'c
 				fim.setDate(fim.getDate() + 1)
 				let classification = '';
 				if (item.fields.Predecessores && item.fields.Predecessores[0]) {
-					classification = classifications[item.fields.Predecessores][0]
+					classification = classifications[item.fields.Predecessores[0]]
 					if (classification.includes(SUMARIO)) {
 						classification = classifications[item.id]
 					}
