@@ -53,7 +53,6 @@ function detailsAdapter(id, airtableData, presenter, options={chart_subtitle: 'c
 						classification = classifications[item.id]
 					}
 				}
-				console.log(item)
 				rows.push([
 					item.id, // Task ID
 					item.fields["Atividade"], // Task Name
