@@ -99,7 +99,7 @@ button.resetbtn:hover {
 	display: none;
 }
 
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+/* @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
 
 	button.dropbtn,
 	button.resetbtn {
@@ -107,7 +107,7 @@ button.resetbtn:hover {
 		margin: 0.2em auto;
 		font-size: 30px;
 	}
-}
+} */
 
 .inline {
 	display: inline-block;
@@ -121,7 +121,7 @@ button.resetbtn:hover {
 	.printeronly {
 		display: block;
 	}
-	.screenonly * {
+	.screenonly {
 		display: none;
 	}
 }
