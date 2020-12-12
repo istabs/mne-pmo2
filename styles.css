@@ -105,7 +105,7 @@ button.dropbtn:hover, button.resetbtn:hover {
 }
 
 @media print {
-	.noprint {
+	button.dropbtn, button.resetbtn {
 	   visibility: hidden;
 	}
  } 
