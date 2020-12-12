@@ -110,7 +110,7 @@ button.resetbtn:hover {
 }
 
 .inline {
-	display: inline;
+	display: inline-block;
 }
 
 .right {
