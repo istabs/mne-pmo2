@@ -93,6 +93,10 @@ button.dropbtn:hover, button.resetbtn:hover {
 	}
 } */
 
+.printeronly {
+	visibility: hidden;
+}
+
 @media only screen 
   and (min-device-width: 375px) 
   and (max-device-width: 667px) 
@@ -102,13 +106,10 @@ button.dropbtn:hover, button.resetbtn:hover {
 		margin: 0.2em auto;
 		font-size: 30px;
 	}
-	.printeronly {
-		visibility: hidden;
-	}
 }
 
 @media print {
-	.screenonly {
+	.screenonly * {
 	   visibility: hidden;
 	}
  } 
