@@ -109,6 +109,10 @@ button.resetbtn:hover {
 	}
 }
 
+.inline {
+	display: inline;
+}
+
 @media print {
 	.printeronly {
 		display: block;
