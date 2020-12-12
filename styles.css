@@ -102,10 +102,13 @@ button.dropbtn:hover, button.resetbtn:hover {
 		margin: 0.2em auto;
 		font-size: 30px;
 	}
+	.printeronly {
+		visibility: hidden;
+	}
 }
 
 @media print {
-	button.dropbtn, button.resetbtn {
+	.screenonly {
 	   visibility: hidden;
 	}
  } 
