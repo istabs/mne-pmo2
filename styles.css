@@ -82,13 +82,24 @@ button.dropbtn, button.resetbtn {
 	transition: all 0.2s;
 }
 
-a.button4:hover {
+button.dropbtn:hover, button.resetbtn:hover {
 	border-color: rgba(255, 255, 255, 1);
 }
 
-@media all and (max-width:30em) {
-	a.button4 {
+/* @media all and (max-width:30em) {
+	button.dropbtn, button.resetbtn {
 		display: block;
 		margin: 0.2em auto;
+	}
+} */
+
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2) { 
+	button.dropbtn, button.resetbtn {
+		display: block;
+		margin: 0.2em auto;
+		font-size: 10px;
 	}
 }
