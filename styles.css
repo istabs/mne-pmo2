@@ -119,7 +119,7 @@ button.resetbtn:hover {
 
 @media print {
 	.printeronly {
-		display: inline;
+		display: block;
 		float: right;
 	}
 	.screenonly * {
