@@ -66,9 +66,9 @@ text,
 	display: block;
 }
 
-button.dropbtn,
+/* button.dropbtn,
 button.resetbtn {
-	/* display: inline-block; */
+	display: inline-block;
 	padding: 0.3em 1.2em;
 	margin: 0 0.1em 0.1em 0;
 	border: 0.16em solid rgba(255, 255, 255, 0);
@@ -81,12 +81,12 @@ button.resetbtn {
 	text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
 	text-align: center;
 	transition: all 0.2s;
-}
+} */
 
-button.dropbtn:hover,
+/* button.dropbtn:hover,
 button.resetbtn:hover {
 	border-color: rgba(255, 255, 255, 1);
-}
+} */
 
 /* @media all and (max-width:30em) {
 	button.dropbtn, button.resetbtn {
@@ -100,7 +100,6 @@ button.resetbtn:hover {
 }
 
 /* @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
-
 	button.dropbtn,
 	button.resetbtn {
 		display: block;
