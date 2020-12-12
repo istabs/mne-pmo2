@@ -54,7 +54,14 @@ crossorigin="anonymous">
 		document.getElementById(ganttTag).innerHTML = links
 	}
 
-	document.addEventListener("DOMContentLoaded", event => resetChart("ganttCharts"));
+	function init(placeholder) {
+		var urlString = window.location.href;
+		console.log(urlString);
+		resetChart(placeholder);
+	}
+
+	//document.addEventListener("DOMContentLoaded", event => resetChart("ganttCharts"));
+	document.addEventListener("DOMContentLoaded", event => init("ganttCharts"));
 
 	var target = setup.contratacao;
 </script>
