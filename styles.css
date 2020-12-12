@@ -100,7 +100,7 @@ button.dropbtn:hover, button.resetbtn:hover {
 	button.dropbtn, button.resetbtn {
 		display: block;
 		margin: 0.2em auto;
-		font-size: 10px;
+		font-size: 30px;
 	}
 }
 
