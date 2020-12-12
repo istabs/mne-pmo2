@@ -113,6 +113,10 @@ button.resetbtn:hover {
 	display: inline;
 }
 
+.right {
+	float: right;
+}
+
 @media print {
 	.printeronly {
 		display: block;
