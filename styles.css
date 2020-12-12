@@ -94,7 +94,7 @@ button.dropbtn:hover, button.resetbtn:hover {
 } */
 
 .printeronly {
-	visibility: hidden;
+	display: none;
 }
 
 @media only screen 
@@ -110,6 +110,6 @@ button.dropbtn:hover, button.resetbtn:hover {
 
 @media print {
 	.screenonly * {
-	   visibility: hidden;
+		display: none;
 	}
  } 
