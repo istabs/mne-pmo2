@@ -103,3 +103,9 @@ button.dropbtn:hover, button.resetbtn:hover {
 		font-size: 10px;
 	}
 }
+
+@media print {
+	.noprint {
+	   visibility: hidden;
+	}
+ } 
