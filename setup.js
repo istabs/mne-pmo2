@@ -19,8 +19,8 @@ var getSetup = function(baseUrl) {
 			resourcesUrl: baseUrl + '/PRR',
 			title: 'Execução',
 			adapt: execucaoAdapter,
-			height: 78 * 42 + 40,
-			count: 78,
+			height: 80 * 42 + 40,
+			count: 80,
 			palette: [
 				{ "color": "#34568B", "dark": "MediumBlue", "light": "LightGray" },
 				{ "color": "#CD212A", "dark": "MediumBlue", "light": "LightGray" },
