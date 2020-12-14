@@ -53,8 +53,10 @@
 		setup = getSetup(baseUrl);
 		var links = "";
 		Object.entries(setup).forEach(item => {
-			links += "<a class='menuItems' onclick=\"fromMenu('" + item[0] + "')\" href=\"#\">" + item[1].title +
-				"</a>"
+			//links += "<a class='menuItems' onclick=\"fromMenu('" + item[0] + "')\" href=\"#\">" + item[1].title +
+			//	"</a>"
+			links += "<a class='dropdown-item' href='#' onclick=\"fromMenu('" + item[0] + "')\" href=\"#\">" + item[1].title + "</a>"
+
 		});
 		document.getElementById(ganttTag).innerHTML = links
 	}
@@ -108,7 +110,7 @@
 				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
 					Gantts
 				</a>
-				<div class="dropdown-menu">
+				<div id="ganttCharts" class="dropdown-menu">
 					<a class="dropdown-item" href="#">Link 1</a>
 					<a class="dropdown-item" href="#">Link 2</a>
 					<a class="dropdown-item" href="#">Link 3</a>
@@ -122,11 +124,12 @@
 
 	<h1 class="printeronly">Calendarização dos projetos PRR do MNE</h1>
 	<p class="printeronly">Cenário em evolução.</p>
+
 	<div class="dropdown">
 		<button onclick="menuToggle()" class="dropbtn screenonly">Seleção de Gantt</button>
-		<div id="ganttCharts" class="dropdown-content"></div>
+		<!-- <div id="ganttCharts" class="dropdown-content"></div> -->
 	</div>
-	<button class="resetbtn screenonly" onclick="resetChart('ganttCharts')">Reset</button>
+
 	<h1>
 		<div id="chart_title"></div>
 	</h1>
