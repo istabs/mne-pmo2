@@ -55,7 +55,8 @@
 		Object.entries(setup).forEach(item => {
 			//links += "<a class='menuItems' onclick=\"fromMenu('" + item[0] + "')\" href=\"#\">" + item[1].title +
 			//	"</a>"
-			links += "<a class='dropdown-item' href='#' onclick=\"fromMenu('" + item[0] + "')\" href=\"#\">" + item[1].title + "</a>"
+			links += "<a class='dropdown-item' href='#' onclick=\"fromMenu('" + item[0] + "')\" href=\"#\">" +
+				item[1].title + "</a>"
 
 		});
 		document.getElementById(ganttTag).innerHTML = links
@@ -118,19 +119,21 @@
 		</ul>
 	</nav>
 
-	<h1 class="printeronly">Calendarização dos projetos PRR do MNE</h1>
-	<p class="printeronly">Cenário em evolução.</p>
+	<div class="container">
+		<h1 class="printeronly">Calendarização dos projetos PRR do MNE</h1>
+		<p class="printeronly">Cenário em evolução.</p>
 
-	<h1>
-		<div id="chart_title"></div>
-	</h1>
-	<h2>
-		<div id="chart_subtitle"></div>
-	</h2>
-	<div id="chart"></div>
-	<div class="printeronly right" style="line-height:4em">
-		<img src="GglLogo.png" alt="GGL logo" style="vertical-align:middle" width="20" height="20">
-		<span>&nbsp;GGL Consulting</span>
+		<h1>
+			<div id="chart_title"></div>
+		</h1>
+		<h2>
+			<div id="chart_subtitle"></div>
+		</h2>
+		<div id="chart"></div>
+		<div class="printeronly right" style="line-height:4em">
+			<img src="GglLogo.png" alt="GGL logo" style="vertical-align:middle" width="20" height="20">
+			<span>&nbsp;GGL Consulting</span>
+		</div>
 	</div>
 
 </body>
