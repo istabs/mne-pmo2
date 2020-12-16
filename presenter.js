@@ -35,6 +35,7 @@ function googleChartAirtableAdapt(airtableData, airTableAdapter, viewer) {
 		table.addColumn('string', 'Dependencies');
 		var i = 0;
 		items.forEach(item => {
+			console.log(item)
 			table.addRow(item);
 			ids[i++] = item[0];
 		})
