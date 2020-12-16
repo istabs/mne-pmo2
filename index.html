@@ -41,25 +41,11 @@
 				var providerData = user.providerData;
 				user.getIdToken().then(function (accessToken) {
 					document.getElementById('sign-in-status').textContent = 'ativo';
-					//document.getElementById('sign-in').textContent = 'Sign out';
-					//document.getElementById('account-details').textContent = JSON.stringify({
-						//displayName: displayName,
-					//	email: email,
-					//	emailVerified: emailVerified,
-						//phoneNumber: phoneNumber,
-						//photoURL: photoURL,
-						//uid: uid,
-						//accessToken: accessToken,
-						//providerData: providerData
-					//}, null, '  ');
 					document.getElementById('email').textContent = email;
 					document.getElementById('estado').textContent = emailVerified;
 				});
 			} else {
-				// User is signed out.
 				document.getElementById('sign-in-status').textContent = 'inativo';
-				//document.getElementById('sign-in').textContent = 'Sign in';
-				//document.getElementById('account-details').textContent = '';
 				document.getElementById('email').textContent = '---';
 				document.getElementById('estado').textContent = '---';
 		}
