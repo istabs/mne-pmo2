@@ -210,6 +210,7 @@ function resetChart(ganttTag, chrtOptions={chart: 'chart', chart_title: 'chart_t
 		if (target && target.title) {
 			document.getElementById(chrtOptions.chart_title).textContent = target.title + (target.subtitle ? " - " + target.subtitle : "");
 			document.getElementById(chrtOptions.chart_subtitle).textContent = "";
+			document.getElementById(ganttTag).innerHTML = "";
 		}
 		let url = target.url;
 		$.ajax({

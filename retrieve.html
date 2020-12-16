@@ -19,7 +19,6 @@
 <script type="text/javascript" src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
 
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"
@@ -38,7 +37,6 @@
 
 <script type="text/javascript">
 	var baseUrl = ''
-	//	var baseUrl = 'https://api.airtable.com/v0/' + 'appWkcknvBGRx31f8'
 	var setup = getSetup(baseUrl);
 
 	function fromMenu(choice) {
@@ -53,8 +51,6 @@
 		setup = getSetup(baseUrl);
 		var links = "";
 		Object.entries(setup).forEach(item => {
-			//links += "<a class='menuItems' onclick=\"fromMenu('" + item[0] + "')\" href=\"#\">" + item[1].title +
-			//	"</a>"
 			links += "<a class='dropdown-item' href='#' onclick=\"fromMenu('" + item[0] + "')\" href=\"#\">" +
 				item[1].title + "</a>"
 
@@ -69,7 +65,6 @@
 		resetChart(placeholder);
 	}
 
-	//document.addEventListener("DOMContentLoaded", event => resetChart("ganttCharts"));
 	document.addEventListener("DOMContentLoaded", event => init("ganttCharts"));
 
 	var target = setup.contratacao;
@@ -84,22 +79,17 @@
 <body>
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		<a class="navbar-brand" href="#">MNE PMO</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent15"
-			aria-controls="navbarSupportedContent15" aria-expanded="false" aria-label="Toggle navigation"><span
-				class="navbar-toggler-icon"></span></button>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent15">
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="#" onclick="resetChart('ganttCharts')">Início</a>
-				</li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-						Gantts
-					</a>
-					<div id="ganttCharts" class="dropdown-menu"></div>
-				</li>
-			</ul>
-		</div>
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link" href="#" onclick="resetChart('ganttCharts')">Início</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+					Gantts
+				</a>
+				<div id="ganttCharts" class="dropdown-menu"></div>
+			</li>
+		</ul>
 	</nav>
 
 	<div class="container">
