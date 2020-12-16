@@ -179,6 +179,7 @@ function contratacaoAdapter(airtableData, presenter) {
 				xhr.setRequestHeader("Authorization", authorization)
 			},
 			success: function (rawData) {
+				console.log("Contratação 123")
 				resources = {};
 				rawData.records.forEach(item => resources[item.id] = item.fields.Procedimento);
 				var rows = []
