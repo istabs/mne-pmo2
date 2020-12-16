@@ -19,8 +19,8 @@ var getSetup = function(baseUrl) {
 			resourcesUrl: baseUrl + '/PRR',
 			title: 'Execução',
 			adapt: execucaoAdapter,
-			height: 80 * 42 + 40,
-			count: 80,
+			height: 81 * 42 + 40,
+			count: 81,
 			palette: [
 				{ "color": "#34568B", "dark": "MediumBlue", "light": "LightGray" },
 				{ "color": "#CD212A", "dark": "MediumBlue", "light": "LightGray" },
@@ -52,8 +52,8 @@ var getSetup = function(baseUrl) {
 			resourcesUrl: baseUrl + '/Procedimentos',
 			title: 'Contratação',
 			adapt: contratacaoAdapter,
-			height: 49 * 42 + 40,
-			count: 49,
+			height: 50 * 42 + 40,
+			count: 50,
 			palette: [
 				{ "color": "#5e97f6", "dark": "#2a56c6", "light": "#c6dafc" },
 				{ "color": "#db4437", "dark": "#a52714", "light": "#f4c7c3" },
@@ -73,8 +73,8 @@ var getSetup = function(baseUrl) {
 			url: baseUrl + '/Visão Integrada',
 			title: 'Visão Integrada',
 			adapt: integratedAdapter,
-			height: 19 * 42 + 40,
-			count: 19,
+			height: 20 * 42 + 40,
+			count: 20,
 			palette: [
 				{ "color": "#34568B", "dark": "MediumBlue", "light": "LightGray" },
 				{ "color": "#CD212A", "dark": "MediumBlue", "light": "LightGray" },
