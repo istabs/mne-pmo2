@@ -196,6 +196,7 @@ function contratacaoAdapter(airtableData, presenter) {
 						null, // Dependencies (string / comma separated)
 					]);
 				});
+				console.log(rows)
 				presenter(rows);
 			}
 		})
