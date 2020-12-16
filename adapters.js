@@ -179,7 +179,6 @@ function contratacaoAdapter(airtableData, presenter) {
 				xhr.setRequestHeader("Authorization", authorization)
 			},
 			success: function (rawData) {
-				console.log("Contratação 123")
 				resources = {};
 				rawData.records.forEach(item => resources[item.id] = item.fields.Procedimento);
 				var rows = []
@@ -221,7 +220,6 @@ function resetChart(ganttTag, chrtOptions={chart: 'chart', chart_title: 'chart_t
 				xhr.setRequestHeader("Authorization", authorization)
 			},
 			success: function (rawData) {
-				console.log("fbcache Contratação 123 1")
 				if (rawData.offset) {
 					let newUrl = url + '?offset=' + rawData.offset
 					$.ajax({
@@ -230,7 +228,6 @@ function resetChart(ganttTag, chrtOptions={chart: 'chart', chart_title: 'chart_t
 							xhr.setRequestHeader("Authorization", authorization)
 						},
 						success: function (rawData1) {
-							console.log("fbcache Contratação 123 2")
 							const HTML_POSITION = chrtOptions.chart;
 							
 							rawData1.records.forEach((record) => {
