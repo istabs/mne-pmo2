@@ -183,7 +183,6 @@ function contratacaoAdapter(airtableData, presenter) {
 				rawData.records.forEach(item => resources[item.id] = item.fields.Procedimento);
 				var rows = []
 				airtableData.records.sort((a, b) => a.fields.Inicio[0] < b.fields.Inicio[0]).forEach(item => {
-					console.log(item)
 					var fim = new Date(item.fields["Fim"])
 					fim.setDate(fim.getDate() + 1)
 					rows.push([
@@ -197,7 +196,6 @@ function contratacaoAdapter(airtableData, presenter) {
 						null, // Dependencies (string / comma separated)
 					]);
 				});
-				console.log(rows)
 				presenter(rows);
 			}
 		})
