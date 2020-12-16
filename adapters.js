@@ -107,7 +107,7 @@ function integratedAdapter(airtableData, presenter) {
 					new Date(item.fields["Inicio"]), // Start Date
 					fim, // End Date
 					0, // Duration (number)
-					item.fields["Progresso"], // Percent Complete
+					0, // Percent Complete (number)
 					preds, // Dependencies (string / comma separated)
 				]);
 			}
@@ -192,7 +192,7 @@ function contratacaoAdapter(airtableData, presenter) {
 						new Date(item.fields["Inicio"]), // Start Date
 						fim, // End Date
 						null, // Duration (number)
-						0, // Percent Complete (number)
+						item.fields["Progresso"], // Percent Complete
 						null, // Dependencies (string / comma separated)
 					]);
 				});
